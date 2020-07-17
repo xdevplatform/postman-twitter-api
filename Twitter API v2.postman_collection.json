@@ -5095,7 +5095,7 @@
 					]
 				},
 				{
-					"name": "Manage Rules",
+					"name": "Add Rules",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -5111,7 +5111,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"add\": [\n        {\n            \"value\": \"kittens has:media\",\n            \"tag\": \"catzrule1\"\n        }\n    ]\n}",
+							"raw": "{\n    \"add\": [\n        {\n            \"value\": \"\",\n            \"tag\": \"\"\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -5134,7 +5134,7 @@
 								"rules"
 							]
 						},
-						"description": "Manage (create or delete) filter rules. To create one or more rules, submit an add payload as an array of rules and operators. To delete one or more rules, submit a delete object payload with an array of rule IDs to delete."
+						"description": "Create filter rules. To create one or more rules, submit an add payload as an array of rules and operators."
 					},
 					"response": [
 						{
@@ -5916,6 +5916,1656 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"errors\": [\n        {\n            \"parameters\": {\n                \"add.value\": []\n            },\n            \"message\": \"field is required\"\n        }\n    ],\n    \"title\": \"Invalid Request\",\n    \"detail\": \"One or more parameters to your request was invalid.\",\n    \"type\": \"https://api.twitter.com/2/problems/invalid-request\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Rules (by rule ID)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"delete\": {\n        \"ids\": [\n            \"\"\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.twitter.com/2/tweets/search/stream/rules",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"tweets",
+								"search",
+								"stream",
+								"rules"
+							]
+						},
+						"description": "Delete filter rules. To delete one or more rules, submit a delete object payload with an array of rule IDs to delete."
+					},
+					"response": [
+						{
+							"name": "400 - Bad Request (Create)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"add\": [\n        {\n            \"values\": \"puppy has:media\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.twitter.com/2/tweets/search/stream/rules",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"tweets",
+										"search",
+										"stream",
+										"rules"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-disposition",
+									"value": "attachment; filename=json.json"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "181"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 18 Jun 2020 16:08:19 GMT"
+								},
+								{
+									"key": "server",
+									"value": "tsa_b"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=631138519"
+								},
+								{
+									"key": "x-access-level",
+									"value": "read"
+								},
+								{
+									"key": "x-connection-hash",
+									"value": "ea1117f7e689b25cdc0d514fc5c62ba8"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-rate-limit-limit",
+									"value": "15"
+								},
+								{
+									"key": "x-rate-limit-remaining",
+									"value": "13"
+								},
+								{
+									"key": "x-rate-limit-reset",
+									"value": "1592497381"
+								},
+								{
+									"key": "x-response-time",
+									"value": "275"
+								},
+								{
+									"key": "x-tsa-request-body-time",
+									"value": "0"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"parameters\": {\n                \"add.value\": []\n            },\n            \"message\": \"field is required\"\n        }\n    ],\n    \"title\": \"Invalid Request\",\n    \"detail\": \"One or more parameters to your request was invalid.\",\n    \"type\": \"https://api.twitter.com/2/problems/invalid-request\"\n}"
+						},
+						{
+							"name": "Success 201 - Create Rules with Dry Run",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"add\": [\n        {\n            \"value\": \"tostones recipe\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.twitter.com/2/tweets/search/stream/rules?dry_run=true",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"tweets",
+										"search",
+										"stream",
+										"rules"
+									],
+									"query": [
+										{
+											"key": "dry_run",
+											"value": "true",
+											"description": "Boolean. Set to true to test a the syntax of your rule without submitting it. This is useful if you want to check the syntax of a rule before removing one or more of your existing rules."
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-disposition",
+									"value": "attachment; filename=json.json"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "157"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 18 Jun 2020 16:00:34 GMT"
+								},
+								{
+									"key": "server",
+									"value": "tsa_b"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=631138519"
+								},
+								{
+									"key": "x-access-level",
+									"value": "read"
+								},
+								{
+									"key": "x-connection-hash",
+									"value": "ea1117f7e689b25cdc0d514fc5c62ba8"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-rate-limit-limit",
+									"value": "15"
+								},
+								{
+									"key": "x-rate-limit-remaining",
+									"value": "12"
+								},
+								{
+									"key": "x-rate-limit-reset",
+									"value": "1592496442"
+								},
+								{
+									"key": "x-response-time",
+									"value": "293"
+								},
+								{
+									"key": "x-tsa-request-body-time",
+									"value": "0"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"value\": \"tostones recipe\",\n            \"id\": \"1273646795642421249\"\n        }\n    ],\n    \"meta\": {\n        \"sent\": \"2020-06-18T16:00:33.972Z\",\n        \"summary\": {\n            \"created\": 1,\n            \"not_created\": 0,\n            \"valid\": 1,\n            \"invalid\": 0\n        }\n    }\n}"
+						},
+						{
+							"name": "Success 200 - Delete Rule",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"delete\": {\n        \"ids\": [\n            \"1273636687768285186\"\n        ]\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.twitter.com/2/tweets/search/stream/rules",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"tweets",
+										"search",
+										"stream",
+										"rules"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "cache-control",
+									"value": "no-cache, no-store, max-age=0"
+								},
+								{
+									"key": "content-disposition",
+									"value": "attachment; filename=json.json"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "101"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 09 Jul 2020 21:13:18 GMT"
+								},
+								{
+									"key": "server",
+									"value": "tsa_b"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=631138519"
+								},
+								{
+									"key": "x-access-level",
+									"value": "read"
+								},
+								{
+									"key": "x-connection-hash",
+									"value": "2973f79ee2e2cc52cf49ccd1a4a5006e"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-rate-limit-limit",
+									"value": "450"
+								},
+								{
+									"key": "x-rate-limit-remaining",
+									"value": "446"
+								},
+								{
+									"key": "x-rate-limit-reset",
+									"value": "1594329886"
+								},
+								{
+									"key": "x-response-time",
+									"value": "408"
+								},
+								{
+									"key": "x-tsa-request-body-time",
+									"value": "1"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"sent\": \"2020-07-09T21:13:18.284Z\",\n        \"summary\": {\n            \"deleted\": 1,\n            \"not_deleted\": 0\n        }\n    }\n}"
+						},
+						{
+							"name": "403 Forbidden - Client Not Enrolled",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"add\": [\n        {\n            \"value\": \"tostones recipe\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.twitter.com/2/tweets/search/stream/rules",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"tweets",
+										"search",
+										"stream",
+										"rules"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-disposition",
+									"value": "attachment; filename=json.json"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "275"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 18 Jun 2020 16:05:21 GMT"
+								},
+								{
+									"key": "server",
+									"value": "tsa_b"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=631138519"
+								},
+								{
+									"key": "x-access-level",
+									"value": "read"
+								},
+								{
+									"key": "x-connection-hash",
+									"value": "ea1117f7e689b25cdc0d514fc5c62ba8"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-rate-limit-limit",
+									"value": "15"
+								},
+								{
+									"key": "x-rate-limit-remaining",
+									"value": "13"
+								},
+								{
+									"key": "x-rate-limit-reset",
+									"value": "1592497214"
+								},
+								{
+									"key": "x-response-time",
+									"value": "258"
+								},
+								{
+									"key": "x-tsa-request-body-time",
+									"value": "0"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"client_id\": \"16340226\",\n    \"required_enrollment\": \"Standard Basic\",\n    \"registration_url\": \"https://developer.twitter.com/en/account\",\n    \"title\": \"Client Forbidden\",\n    \"detail\": \"This request must be made using an approved developer account that is enrolled in the requested endpoint. Learn more by visiting our documentation.\",\n    \"reason\": \"client-not-enrolled\",\n    \"type\": \"https://api.twitter.com/2/problems/client-forbidden\"\n}"
+						},
+						{
+							"name": "Success 200 - Errors for Invalid Rule",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"add\": [\n        {\n            \"value\": \"plantains or tostones or guacamole or arepas or tacos or mushrooms or porcini or hen of the woods or cremini or enoki or shiitake or carbonara or cacio e pepe or amatriciana or parmigiano reggiano or california burrito or chipotle or carne asada fries or laksa or hokkien mee or chili crab or nasi lemak or hainan chicken rice or kaya toast or bak kut teh or popiah or pisang goreng or curry puff or nasi uduk or martabak or fried chicken or bbq or kimchi or yukgaejang or galbitang or xiao long bao or pizza or ice cream sandwich\",\n            \"tag\": \"food\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.twitter.com/2/tweets/search/stream/rules",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"tweets",
+										"search",
+										"stream",
+										"rules"
+									],
+									"query": [
+										{
+											"key": "dry_run",
+											"value": "true",
+											"description": "Boolean. Set to true to test a the syntax of your rule without submitting it. This is useful if you want to check the syntax of a rule before removing one or more of your existing rules.",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-disposition",
+									"value": "attachment; filename=json.json"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "832"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 18 Jun 2020 15:56:35 GMT"
+								},
+								{
+									"key": "server",
+									"value": "tsa_b"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=631138519"
+								},
+								{
+									"key": "x-access-level",
+									"value": "read"
+								},
+								{
+									"key": "x-connection-hash",
+									"value": "ea1117f7e689b25cdc0d514fc5c62ba8"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-rate-limit-limit",
+									"value": "15"
+								},
+								{
+									"key": "x-rate-limit-remaining",
+									"value": "13"
+								},
+								{
+									"key": "x-rate-limit-reset",
+									"value": "1592496442"
+								},
+								{
+									"key": "x-response-time",
+									"value": "326"
+								},
+								{
+									"key": "x-tsa-request-body-time",
+									"value": "0"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"sent\": \"2020-06-18T15:56:35.056Z\",\n        \"summary\": {\n            \"created\": 0,\n            \"not_created\": 1,\n            \"valid\": 0,\n            \"invalid\": 1\n        }\n    },\n    \"errors\": [\n        {\n            \"value\": \"plantains or tostones or guacamole or arepas or tacos or mushrooms or porcini or hen of the woods or cremini or enoki or shiitake or carbonara or cacio e pepe or amatriciana or parmigiano reggiano or california burrito or chipotle or carne asada fries or laksa or hokkien mee or chili crab or nasi lemak or hainan chicken rice or kaya toast or bak kut teh or popiah or pisang goreng or curry puff or nasi uduk or martabak or fried chicken or bbq or kimchi or yukgaejang or galbitang or xiao long bao or pizza or ice cream sandwich\",\n            \"details\": [\n                \"Too many positive clauses in rule - 100.  The maximum allowed is 30 (at position 1)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 36)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 484)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 131)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 160)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 447)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 253)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 220)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 55)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 119)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 342)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 501)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 305)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 144)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 175)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 367)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 398)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 328)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 423)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 198)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 262)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 357)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 68)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 99)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 291)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 384)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 510)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 411)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 440)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 23)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 471)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 277)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 79)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 46)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 110)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 11)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 457)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 232)\",\n                \"Rule 'plantains or tostones or guacamole or arepas or tacos or mushrooms or porcini or hen of the woods or cremini or enoki or shiitake or carbonara or cacio e pepe or amatriciana or parmigiano reggiano or california burrito or chipotle or carne asada fries or laksa or hokkien mee or chili crab or nasi lemak or hainan chicken rice or kaya toast or bak kut teh or popiah or pisang goreng or curry puff or nasi uduk or martabak or fried chicken or bbq or kimchi or yukgaejang or galbitang or xiao long bao or pizza or ice cream sandwich' exceeds the maximum length of a rule. It is 530 characters while the maximum allowed is 512 (at position 1)\"\n            ],\n            \"title\": \"UnprocessableEntity\",\n            \"type\": \"https://api.twitter.com/2/problems/invalid-rules\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "400 - Bad Request (Delete)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"delete\": [\n        {\n            \"ids\": [\n                \"1273636687768285186\"\n            ]\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.twitter.com/2/tweets/search/stream/rules",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"tweets",
+										"search",
+										"stream",
+										"rules"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "cache-control",
+									"value": "no-cache, no-store, max-age=0"
+								},
+								{
+									"key": "content-disposition",
+									"value": "attachment; filename=json.json"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "195"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 09 Jul 2020 21:11:01 GMT"
+								},
+								{
+									"key": "server",
+									"value": "tsa_b"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=631138519"
+								},
+								{
+									"key": "x-access-level",
+									"value": "read"
+								},
+								{
+									"key": "x-connection-hash",
+									"value": "2973f79ee2e2cc52cf49ccd1a4a5006e"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-rate-limit-limit",
+									"value": "450"
+								},
+								{
+									"key": "x-rate-limit-remaining",
+									"value": "447"
+								},
+								{
+									"key": "x-rate-limit-reset",
+									"value": "1594329886"
+								},
+								{
+									"key": "x-response-time",
+									"value": "375"
+								},
+								{
+									"key": "x-tsa-request-body-time",
+									"value": "0"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"parameters\": {\n                \"delete\": []\n            },\n            \"message\": \"JSON doesn't match expected schema\"\n        }\n    ],\n    \"title\": \"Invalid Request\",\n    \"detail\": \"One or more parameters to your request was invalid.\",\n    \"type\": \"https://api.twitter.com/2/problems/invalid-request\"\n}"
+						},
+						{
+							"name": "Success 201 - Created List of Rules",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"add\": [\n        {\n            \"value\": \"puppy has:media\",\n            \"tag\": \"puppies with media\"\n        },\n        {\n            \"value\": \"meme has:images\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.twitter.com/2/tweets/search/stream/rules",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"tweets",
+										"search",
+										"stream",
+										"rules"
+									],
+									"query": [
+										{
+											"key": "dry_run",
+											"value": "",
+											"description": "Boolean. Set to true to test a the syntax of your rule without submitting it. This is useful if you want to check the syntax of a rule before removing one or more of your existing rules.",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-disposition",
+									"value": "attachment; filename=json.json"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "190"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 18 Jun 2020 15:20:24 GMT"
+								},
+								{
+									"key": "server",
+									"value": "tsa_b"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=631138519"
+								},
+								{
+									"key": "x-access-level",
+									"value": "read"
+								},
+								{
+									"key": "x-connection-hash",
+									"value": "d3ecb7f3763b04c3289e94d8bdbbf298"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-rate-limit-limit",
+									"value": "15"
+								},
+								{
+									"key": "x-rate-limit-remaining",
+									"value": "13"
+								},
+								{
+									"key": "x-rate-limit-reset",
+									"value": "1592493964"
+								},
+								{
+									"key": "x-response-time",
+									"value": "354"
+								},
+								{
+									"key": "x-tsa-request-body-time",
+									"value": "0"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"value\": \"meme has:images\",\n            \"id\": \"1273636687768285186\"\n        },\n        {\n            \"value\": \"puppy has:media\",\n            \"tag\": \"puppies with media\",\n            \"id\": \"1273636687768285187\"\n        }\n    ],\n    \"meta\": {\n        \"sent\": \"2020-06-18T15:20:24.063Z\",\n        \"summary\": {\n            \"created\": 2,\n            \"not_created\": 0,\n            \"valid\": 2,\n            \"invalid\": 0\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Rules (by rule value)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"delete\": {\n\t\t\"values\": [\n\t\t\t\"\"\n\t\t]\n\t}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.twitter.com/2/tweets/search/stream/rules",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"tweets",
+								"search",
+								"stream",
+								"rules"
+							]
+						},
+						"description": "Delete filter rules. To delete one or more rules, submit a delete object payload with an array of rule values to delete."
+					},
+					"response": [
+						{
+							"name": "Success 201 - Create Rules with Dry Run",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"add\": [\n        {\n            \"value\": \"tostones recipe\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.twitter.com/2/tweets/search/stream/rules?dry_run=true",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"tweets",
+										"search",
+										"stream",
+										"rules"
+									],
+									"query": [
+										{
+											"key": "dry_run",
+											"value": "true",
+											"description": "Boolean. Set to true to test a the syntax of your rule without submitting it. This is useful if you want to check the syntax of a rule before removing one or more of your existing rules."
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-disposition",
+									"value": "attachment; filename=json.json"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "157"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 18 Jun 2020 16:00:34 GMT"
+								},
+								{
+									"key": "server",
+									"value": "tsa_b"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=631138519"
+								},
+								{
+									"key": "x-access-level",
+									"value": "read"
+								},
+								{
+									"key": "x-connection-hash",
+									"value": "ea1117f7e689b25cdc0d514fc5c62ba8"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-rate-limit-limit",
+									"value": "15"
+								},
+								{
+									"key": "x-rate-limit-remaining",
+									"value": "12"
+								},
+								{
+									"key": "x-rate-limit-reset",
+									"value": "1592496442"
+								},
+								{
+									"key": "x-response-time",
+									"value": "293"
+								},
+								{
+									"key": "x-tsa-request-body-time",
+									"value": "0"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"value\": \"tostones recipe\",\n            \"id\": \"1273646795642421249\"\n        }\n    ],\n    \"meta\": {\n        \"sent\": \"2020-06-18T16:00:33.972Z\",\n        \"summary\": {\n            \"created\": 1,\n            \"not_created\": 0,\n            \"valid\": 1,\n            \"invalid\": 0\n        }\n    }\n}"
+						},
+						{
+							"name": "Success 200 - Delete Rule",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"delete\": {\n        \"ids\": [\n            \"1273636687768285186\"\n        ]\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.twitter.com/2/tweets/search/stream/rules",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"tweets",
+										"search",
+										"stream",
+										"rules"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "cache-control",
+									"value": "no-cache, no-store, max-age=0"
+								},
+								{
+									"key": "content-disposition",
+									"value": "attachment; filename=json.json"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "101"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 09 Jul 2020 21:13:18 GMT"
+								},
+								{
+									"key": "server",
+									"value": "tsa_b"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=631138519"
+								},
+								{
+									"key": "x-access-level",
+									"value": "read"
+								},
+								{
+									"key": "x-connection-hash",
+									"value": "2973f79ee2e2cc52cf49ccd1a4a5006e"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-rate-limit-limit",
+									"value": "450"
+								},
+								{
+									"key": "x-rate-limit-remaining",
+									"value": "446"
+								},
+								{
+									"key": "x-rate-limit-reset",
+									"value": "1594329886"
+								},
+								{
+									"key": "x-response-time",
+									"value": "408"
+								},
+								{
+									"key": "x-tsa-request-body-time",
+									"value": "1"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"sent\": \"2020-07-09T21:13:18.284Z\",\n        \"summary\": {\n            \"deleted\": 1,\n            \"not_deleted\": 0\n        }\n    }\n}"
+						},
+						{
+							"name": "403 Forbidden - Client Not Enrolled",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"add\": [\n        {\n            \"value\": \"tostones recipe\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.twitter.com/2/tweets/search/stream/rules",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"tweets",
+										"search",
+										"stream",
+										"rules"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-disposition",
+									"value": "attachment; filename=json.json"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "275"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 18 Jun 2020 16:05:21 GMT"
+								},
+								{
+									"key": "server",
+									"value": "tsa_b"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=631138519"
+								},
+								{
+									"key": "x-access-level",
+									"value": "read"
+								},
+								{
+									"key": "x-connection-hash",
+									"value": "ea1117f7e689b25cdc0d514fc5c62ba8"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-rate-limit-limit",
+									"value": "15"
+								},
+								{
+									"key": "x-rate-limit-remaining",
+									"value": "13"
+								},
+								{
+									"key": "x-rate-limit-reset",
+									"value": "1592497214"
+								},
+								{
+									"key": "x-response-time",
+									"value": "258"
+								},
+								{
+									"key": "x-tsa-request-body-time",
+									"value": "0"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"client_id\": \"16340226\",\n    \"required_enrollment\": \"Standard Basic\",\n    \"registration_url\": \"https://developer.twitter.com/en/account\",\n    \"title\": \"Client Forbidden\",\n    \"detail\": \"This request must be made using an approved developer account that is enrolled in the requested endpoint. Learn more by visiting our documentation.\",\n    \"reason\": \"client-not-enrolled\",\n    \"type\": \"https://api.twitter.com/2/problems/client-forbidden\"\n}"
+						},
+						{
+							"name": "Success 200 - Errors for Invalid Rule",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"add\": [\n        {\n            \"value\": \"plantains or tostones or guacamole or arepas or tacos or mushrooms or porcini or hen of the woods or cremini or enoki or shiitake or carbonara or cacio e pepe or amatriciana or parmigiano reggiano or california burrito or chipotle or carne asada fries or laksa or hokkien mee or chili crab or nasi lemak or hainan chicken rice or kaya toast or bak kut teh or popiah or pisang goreng or curry puff or nasi uduk or martabak or fried chicken or bbq or kimchi or yukgaejang or galbitang or xiao long bao or pizza or ice cream sandwich\",\n            \"tag\": \"food\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.twitter.com/2/tweets/search/stream/rules",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"tweets",
+										"search",
+										"stream",
+										"rules"
+									],
+									"query": [
+										{
+											"key": "dry_run",
+											"value": "true",
+											"description": "Boolean. Set to true to test a the syntax of your rule without submitting it. This is useful if you want to check the syntax of a rule before removing one or more of your existing rules.",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-disposition",
+									"value": "attachment; filename=json.json"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "832"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 18 Jun 2020 15:56:35 GMT"
+								},
+								{
+									"key": "server",
+									"value": "tsa_b"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=631138519"
+								},
+								{
+									"key": "x-access-level",
+									"value": "read"
+								},
+								{
+									"key": "x-connection-hash",
+									"value": "ea1117f7e689b25cdc0d514fc5c62ba8"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-rate-limit-limit",
+									"value": "15"
+								},
+								{
+									"key": "x-rate-limit-remaining",
+									"value": "13"
+								},
+								{
+									"key": "x-rate-limit-reset",
+									"value": "1592496442"
+								},
+								{
+									"key": "x-response-time",
+									"value": "326"
+								},
+								{
+									"key": "x-tsa-request-body-time",
+									"value": "0"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"sent\": \"2020-06-18T15:56:35.056Z\",\n        \"summary\": {\n            \"created\": 0,\n            \"not_created\": 1,\n            \"valid\": 0,\n            \"invalid\": 1\n        }\n    },\n    \"errors\": [\n        {\n            \"value\": \"plantains or tostones or guacamole or arepas or tacos or mushrooms or porcini or hen of the woods or cremini or enoki or shiitake or carbonara or cacio e pepe or amatriciana or parmigiano reggiano or california burrito or chipotle or carne asada fries or laksa or hokkien mee or chili crab or nasi lemak or hainan chicken rice or kaya toast or bak kut teh or popiah or pisang goreng or curry puff or nasi uduk or martabak or fried chicken or bbq or kimchi or yukgaejang or galbitang or xiao long bao or pizza or ice cream sandwich\",\n            \"details\": [\n                \"Too many positive clauses in rule - 100.  The maximum allowed is 30 (at position 1)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 36)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 484)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 131)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 160)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 447)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 253)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 220)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 55)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 119)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 342)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 501)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 305)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 144)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 175)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 367)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 398)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 328)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 423)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 198)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 262)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 357)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 68)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 99)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 291)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 384)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 510)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 411)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 440)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 23)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 471)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 277)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 79)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 46)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 110)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 11)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 457)\",\n                \"Ambiguous use of or as a keyword. Use OR to logically join two clauses, or \\\"or\\\" to find occurrences of or in text (at position 232)\",\n                \"Rule 'plantains or tostones or guacamole or arepas or tacos or mushrooms or porcini or hen of the woods or cremini or enoki or shiitake or carbonara or cacio e pepe or amatriciana or parmigiano reggiano or california burrito or chipotle or carne asada fries or laksa or hokkien mee or chili crab or nasi lemak or hainan chicken rice or kaya toast or bak kut teh or popiah or pisang goreng or curry puff or nasi uduk or martabak or fried chicken or bbq or kimchi or yukgaejang or galbitang or xiao long bao or pizza or ice cream sandwich' exceeds the maximum length of a rule. It is 530 characters while the maximum allowed is 512 (at position 1)\"\n            ],\n            \"title\": \"UnprocessableEntity\",\n            \"type\": \"https://api.twitter.com/2/problems/invalid-rules\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Success 201 - Created List of Rules",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"add\": [\n        {\n            \"value\": \"puppy has:media\",\n            \"tag\": \"puppies with media\"\n        },\n        {\n            \"value\": \"meme has:images\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.twitter.com/2/tweets/search/stream/rules",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"tweets",
+										"search",
+										"stream",
+										"rules"
+									],
+									"query": [
+										{
+											"key": "dry_run",
+											"value": "",
+											"description": "Boolean. Set to true to test a the syntax of your rule without submitting it. This is useful if you want to check the syntax of a rule before removing one or more of your existing rules.",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-disposition",
+									"value": "attachment; filename=json.json"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "190"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 18 Jun 2020 15:20:24 GMT"
+								},
+								{
+									"key": "server",
+									"value": "tsa_b"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=631138519"
+								},
+								{
+									"key": "x-access-level",
+									"value": "read"
+								},
+								{
+									"key": "x-connection-hash",
+									"value": "d3ecb7f3763b04c3289e94d8bdbbf298"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-rate-limit-limit",
+									"value": "15"
+								},
+								{
+									"key": "x-rate-limit-remaining",
+									"value": "13"
+								},
+								{
+									"key": "x-rate-limit-reset",
+									"value": "1592493964"
+								},
+								{
+									"key": "x-response-time",
+									"value": "354"
+								},
+								{
+									"key": "x-tsa-request-body-time",
+									"value": "0"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"value\": \"meme has:images\",\n            \"id\": \"1273636687768285186\"\n        },\n        {\n            \"value\": \"puppy has:media\",\n            \"tag\": \"puppies with media\",\n            \"id\": \"1273636687768285187\"\n        }\n    ],\n    \"meta\": {\n        \"sent\": \"2020-06-18T15:20:24.063Z\",\n        \"summary\": {\n            \"created\": 2,\n            \"not_created\": 0,\n            \"valid\": 2,\n            \"invalid\": 0\n        }\n    }\n}"
+						},
+						{
+							"name": "400 - Bad Request (Create)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"add\": [\n        {\n            \"values\": \"puppy has:media\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.twitter.com/2/tweets/search/stream/rules",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"tweets",
+										"search",
+										"stream",
+										"rules"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-disposition",
+									"value": "attachment; filename=json.json"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "181"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 18 Jun 2020 16:08:19 GMT"
+								},
+								{
+									"key": "server",
+									"value": "tsa_b"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=631138519"
+								},
+								{
+									"key": "x-access-level",
+									"value": "read"
+								},
+								{
+									"key": "x-connection-hash",
+									"value": "ea1117f7e689b25cdc0d514fc5c62ba8"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-rate-limit-limit",
+									"value": "15"
+								},
+								{
+									"key": "x-rate-limit-remaining",
+									"value": "13"
+								},
+								{
+									"key": "x-rate-limit-reset",
+									"value": "1592497381"
+								},
+								{
+									"key": "x-response-time",
+									"value": "275"
+								},
+								{
+									"key": "x-tsa-request-body-time",
+									"value": "0"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"parameters\": {\n                \"add.value\": []\n            },\n            \"message\": \"field is required\"\n        }\n    ],\n    \"title\": \"Invalid Request\",\n    \"detail\": \"One or more parameters to your request was invalid.\",\n    \"type\": \"https://api.twitter.com/2/problems/invalid-request\"\n}"
+						},
+						{
+							"name": "400 - Bad Request (Delete)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"delete\": [\n        {\n            \"ids\": [\n                \"1273636687768285186\"\n            ]\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.twitter.com/2/tweets/search/stream/rules",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"tweets",
+										"search",
+										"stream",
+										"rules"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "cache-control",
+									"value": "no-cache, no-store, max-age=0"
+								},
+								{
+									"key": "content-disposition",
+									"value": "attachment; filename=json.json"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "195"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 09 Jul 2020 21:11:01 GMT"
+								},
+								{
+									"key": "server",
+									"value": "tsa_b"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=631138519"
+								},
+								{
+									"key": "x-access-level",
+									"value": "read"
+								},
+								{
+									"key": "x-connection-hash",
+									"value": "2973f79ee2e2cc52cf49ccd1a4a5006e"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-rate-limit-limit",
+									"value": "450"
+								},
+								{
+									"key": "x-rate-limit-remaining",
+									"value": "447"
+								},
+								{
+									"key": "x-rate-limit-reset",
+									"value": "1594329886"
+								},
+								{
+									"key": "x-response-time",
+									"value": "375"
+								},
+								{
+									"key": "x-tsa-request-body-time",
+									"value": "0"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"parameters\": {\n                \"delete\": []\n            },\n            \"message\": \"JSON doesn't match expected schema\"\n        }\n    ],\n    \"title\": \"Invalid Request\",\n    \"detail\": \"One or more parameters to your request was invalid.\",\n    \"type\": \"https://api.twitter.com/2/problems/invalid-request\"\n}"
 						}
 					]
 				},
