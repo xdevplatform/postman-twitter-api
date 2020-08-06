@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "784efcda-ed4c-4491-a4c0-a26470a67400",
 		"name": "Twitter API v2",
-		"description": "This is a Postman collection for the Twitter API endpoints. Please see the following documentation for more details:\nhttps://developer.twitter.com/en/docs\n\nIn case you have an API-related question, you can also go to the [community forum](https://twittercommunity.com).\n\n## Installation\n\n### Quick install\n\nGo to the [collection](https://t.co/twitter-api-postman) then just click `Run in Postman`.\n\n### Manual install\n\nYou can also download this collection files from GitHub repo here:  https://github.com/twitterdev/postman-twitter-api\n\n\n## Environment\n\nThis collection includes a pre-configured environment setting. You will be needing to set up below variables in order to run each request:\n\n|Name|Description|\n|---|---|\n|`bearer_token`||\n|`consumer_key`||\n|`consumer_secret`||\n|`access_token`||\n|`token_secret`||\n\n## Authentication",
+		"description": "This is a Postman collection for the Twitter API endpoints. Please see the following documentation for more details:\nhttps://developer.twitter.com/en/docs\n\nIn case you have an API-related question, you can also go to the [community forum](https://twittercommunity.com).\n\n## Installation\n\n### Quick install\n\nGo to the [collection](https://t.co/twitter-api-postman) then just click `Run in Postman`.\n\n### Manual install\n\nYou can also download this collection files from GitHub repo here:  https://github.com/twitterdev/postman-twitter-api\n\n\n## Environment\n\nThis collection includes a pre-configured environment setting. You will be needing to set up below variables in order to run each request:\n\n|Name|Description|\n|---|---|\n|`bearer_token`|Your bearer token|\n|`consumer_key`|Your OAuth consumer key|\n|`consumer_secret`|Your OAuth consumer secret|\n|`access_token`|Your OAuth access token|\n|`token_secret`|Your OAuth access token secret|",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -12,16 +12,6 @@
 				{
 					"name": "Single Tweet",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{bearer_token}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -78,7 +68,8 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": ""
+									"value": "",
+									"type": "string"
 								}
 							]
 						},
@@ -973,16 +964,6 @@
 				{
 					"name": "Multiple Tweets",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{bearer_token}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -1685,16 +1666,6 @@
 				{
 					"name": "User by ID",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{bearer_token}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -1733,7 +1704,8 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": ""
+									"value": "",
+									"type": "string"
 								}
 							]
 						},
@@ -2312,16 +2284,6 @@
 				{
 					"name": "Users by ID",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{bearer_token}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -2903,16 +2865,6 @@
 				{
 					"name": "User by Username",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{bearer_token}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -2953,7 +2905,8 @@
 							"variable": [
 								{
 									"key": "username",
-									"value": ""
+									"value": "",
+									"type": "string"
 								}
 							]
 						},
@@ -3419,16 +3372,6 @@
 				{
 					"name": "Users by Username",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{bearer_token}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -4146,16 +4089,6 @@
 				{
 					"name": "Recent Search",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{bearer_token}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -4799,6 +4732,28 @@
 					]
 				}
 			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "039d93bd-1b79-44cf-9549-f4b700b1c055",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6e1a1f58-b3d2-4fe6-83c6-7b13bab73d8c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
 			"protocolProfileBehavior": {}
 		},
 		{
@@ -4807,16 +4762,6 @@
 				{
 					"name": "Retrieve Rules",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{bearer_token}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -5097,16 +5042,6 @@
 				{
 					"name": "Add Rules",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{bearer_token}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -5922,16 +5857,6 @@
 				{
 					"name": "Delete Rules (by rule ID)",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{bearer_token}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -6747,16 +6672,6 @@
 				{
 					"name": "Delete Rules (by rule value)",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{bearer_token}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -7572,16 +7487,6 @@
 				{
 					"name": "Stream (see description)",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{bearer_token}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -7925,6 +7830,51 @@
 			"protocolProfileBehavior": {}
 		}
 	],
+	"auth": {
+		"type": "oauth1",
+		"oauth1": [
+			{
+				"key": "addParamsToHeader",
+				"value": true,
+				"type": "boolean"
+			},
+			{
+				"key": "tokenSecret",
+				"value": "{{token_secret}}",
+				"type": "string"
+			},
+			{
+				"key": "token",
+				"value": "{{access_token}}",
+				"type": "string"
+			},
+			{
+				"key": "consumerSecret",
+				"value": "{{consumer_secret}}",
+				"type": "string"
+			},
+			{
+				"key": "consumerKey",
+				"value": "{{consumer_key}}",
+				"type": "string"
+			},
+			{
+				"key": "signatureMethod",
+				"value": "HMAC-SHA1",
+				"type": "string"
+			},
+			{
+				"key": "version",
+				"value": "1.0",
+				"type": "string"
+			},
+			{
+				"key": "addEmptyParamsToSign",
+				"value": false,
+				"type": "boolean"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",
@@ -7932,7 +7882,180 @@
 				"id": "6a3ade9a-42c7-4300-8143-3baacc77f586",
 				"type": "text/javascript",
 				"exec": [
-					""
+					"/*",
+					" * This pre-request script retrieves a Bearer token from the client credentials",
+					" * you provide in your environment file.",
+					" */",
+					"",
+					"// Retrieve env variables currently configured",
+					"const env_variables = pm.environment.toObject({",
+					"    excludeDisabled: true",
+					"});",
+					"",
+					"const addToken = () => {",
+					"    pm.sendRequest({",
+					"        url: 'https://api.twitter.com/oauth2/token',",
+					"        method: 'POST',",
+					"        auth: {",
+					"            type: 'basic',",
+					"            basic: {",
+					"                username: env_variables.consumer_key,",
+					"                password: env_variables.consumer_secret",
+					"            }",
+					"        },",
+					"        headers: {",
+					"            'Content-type': 'Content-type: application/x-www-form-urlencoded; charset: utf-8'",
+					"        },",
+					"        body: {",
+					"            mode: 'urlencoded',",
+					"            urlencoded: 'grant_type=client_credentials'",
+					"        }",
+					"    }, (err, res) => {",
+					"        if (err) {",
+					"            console.error('Error while generating a bearer token:', err);",
+					"        } else {",
+					"            const {access_token} = res.json();",
+					"            env_variables.bearer_token = access_token;",
+					"            pm.environment.set('bearer_token', access_token);",
+					"        }",
+					"    });",
+					"}",
+					"",
+					"const prepareBearerToken = () => {",
+					"    // Check if the required variables are set",
+					"    for (const key of ['consumer_key', 'consumer_secret']) {",
+					"        if (typeof env_variables[key] === 'undefined' || !env_variables[key]) {",
+					"            console.error('Missing required env variable:', key);",
+					"            return;",
+					"        }",
+					"    }",
+					"    ",
+					"    // Use an existing Bearer token, if already provided",
+					"    if (typeof env_variables.bearer_token === 'undefined' || env_variables.bearer_token === '' || env_variables.bearer_token === null) {",
+					"        addToken();",
+					"    }",
+					"}",
+					"",
+					"prepareBearerToken();",
+					"",
+					"const prepareOAuthSignature = () => {",
+					"    /*",
+					"     * This is a Pre-request script for Postman client to remediate OAuth 1.0a issue",
+					"     * where certain request fails if the query parameter includes some specific characters.",
+					"     * https://tools.ietf.org/html/rfc3986#section-2.2 (rfc3986, gen-delims reserved characters)",
+					"     *",
+					"     * NOTE: This Pre-script is intended to use with \"GET\" request but might be able to",
+					"     *       work with other methods that have no request body.",
+					"     *       For \"POST\" request, there's another workaround.",
+					"     *       See: https://github.com/twitterdev/postman-twitter-ads-api/issues/2",
+					"     * ",
+					"     * In order to use this Pre-request script, you need to change your \"Authorization\" type to",
+					"     * \"No Auth\" only for the target request and do not apply to the top-level object.",
+					"     */",
+					"    ",
+					"    const sdk = require('postman-collection');",
+					"    ",
+					"    function toArray(object) {",
+					"        let array = [];",
+					"        Object.keys(object).forEach(key => {",
+					"            array.push(`${key}=${object[key]}`);",
+					"        });",
+					"        return array",
+					"    }",
+					"    ",
+					"    // fetch all env variables that are currently defined",
+					"    const env_variables = pm.environment.toObject({",
+					"        excludeDisabled: true",
+					"    });",
+					"    ",
+					"    const oauth_consumer_key = env_variables.consumer_key;",
+					"    const oauth_consumer_secret = env_variables.consumer_secret;",
+					"    const oauth_token = env_variables.access_token;",
+					"    const oauth_secret = env_variables.token_secret;",
+					"    const oauth_signing_key = `${oauth_consumer_secret}&${oauth_secret}`;",
+					"    ",
+					"    // create random oauth_nonce string",
+					"    const random_source = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';",
+					"    let oauth_nonce = '';",
+					"    for (let i = 0; i < 32; i++) {",
+					"        oauth_nonce += random_source.charAt(Math.floor(Math.random() * random_source.length));",
+					"    }",
+					"    ",
+					"    const oauth_parameter_string_object = {};",
+					"    oauth_parameter_string_object.oauth_consumer_key = oauth_consumer_key;",
+					"    oauth_parameter_string_object.oauth_token = oauth_token;",
+					"    const oauth_nonce_array = CryptoJS.enc.Utf8.parse(oauth_nonce);",
+					"    oauth_parameter_string_object.oauth_nonce = encodeURIComponent(CryptoJS.enc.Base64.stringify(oauth_nonce_array));",
+					"    oauth_parameter_string_object.oauth_signature_method = 'HMAC-SHA1';",
+					"    oauth_parameter_string_object.oauth_version = '1.0';",
+					"    oauth_parameter_string_object.oauth_timestamp = Math.round((new Date()).getTime() / 1000);",
+					"    ",
+					"    // for Authorization request header (copy object)",
+					"    const oauth_authorization_header_object = Object.assign({}, oauth_parameter_string_object);",
+					"    ",
+					"    // convert query string into object (+ encode)",
+					"    const url_query_string_object = {};",
+					"    ",
+					"    const url_query_string_object_array = sdk.QueryParam.parse(",
+					"        pm.request.url.getQueryString({",
+					"            ignoreDisabled: true",
+					"        })",
+					"    ).filter(el => !!el.key);",
+					"    ",
+					"    url_query_string_object_array.forEach(item => {",
+					"        url_query_string_object[item.key] = encodeURIComponent(item.value);",
+					"    });",
+					"    ",
+					"    // merge query parameter",
+					"    Object.assign(oauth_parameter_string_object, url_query_string_object);",
+					"    ",
+					"    // sort object by key",
+					"    const oauth_parameter_string_object_ordered = {};",
+					"    Object.keys(oauth_parameter_string_object).sort().forEach(function(key) {",
+					"        oauth_parameter_string_object_ordered[key] = oauth_parameter_string_object[key];",
+					"    });",
+					"    ",
+					"    // generate parameter string",
+					"    const oauth_parameter_string = toArray(oauth_parameter_string_object_ordered).join('&');",
+					"    ",
+					"    // replace dynamic variables",
+					"    let base_host = pm.request.url.getOAuth1BaseUrl();",
+					"    let regexp = /{{(.*?)}}/g;",
+					"    let result = null;",
+					"    while (result = regexp.exec(base_host)) {",
+					"        let value = env_variables[result[1]];",
+					"        base_host = base_host.replace(new RegExp(`{{${result[1]}}}`, 'g'), value);",
+					"    }",
+					"    ",
+					"    // generate base string",
+					"    const oauth_base_string = `${pm.request.method}&${encodeURIComponent(base_host)}&${encodeURIComponent(oauth_parameter_string)}`;",
+					"    ",
+					"    // generate signature",
+					"    const oauth_signature = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA1(oauth_base_string, oauth_signing_key));",
+					"    ",
+					"    oauth_authorization_header_object.oauth_signature = encodeURIComponent(oauth_signature);",
+					"    ",
+					"    // generate Authorization header string",
+					"    const oauth_authorization_header = toArray(oauth_authorization_header_object).join(', ');",
+					"    ",
+					"    // generate Authorization header",
+					"    pm.request.headers.add({",
+					"        key: 'Authorization',",
+					"        value: `OAuth ${oauth_authorization_header}`",
+					"    });",
+					"    ",
+					"    // Escape URI parameters using encodeURIComponent => RFC3986",
+					"    if (Object.keys(url_query_string_object).length !== 0) {",
+					"        // generate query parameter string",
+					"        const request_parameter_string = toArray(url_query_string_object).join('&');",
+					"    ",
+					"        pm.request.url = `${pm.request.url.getOAuth1BaseUrl()}?${request_parameter_string}`;",
+					"    }",
+					"}",
+					"",
+					"if (typeof pm.request.auth !== 'undefined' && pm.request.auth.type === 'oauth1') {",
+					"    prepareOAuthSignature();",
+					"}"
 				]
 			}
 		},
@@ -7945,6 +8068,33 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"id": "8e77b957-3614-4fff-8bea-15016b946ba9",
+			"key": "consumer_key",
+			"value": ""
+		},
+		{
+			"id": "5570c7e5-4022-4347-9f23-aa484f34b8f8",
+			"key": "consumer_secret",
+			"value": ""
+		},
+		{
+			"id": "d51715ec-7324-45fc-ac38-349a68ad08f7",
+			"key": "access_token",
+			"value": ""
+		},
+		{
+			"id": "e89cb378-75f2-4215-8c9d-b5e50219a2c4",
+			"key": "token_secret",
+			"value": ""
+		},
+		{
+			"id": "94e79178-358c-4569-a75f-0218f65936ed",
+			"key": "bearer_token",
+			"value": ""
 		}
 	],
 	"protocolProfileBehavior": {}
