@@ -963,6 +963,959 @@
 					]
 				},
 				{
+					"name": "Single Tweet Usercontext",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.twitter.com/2/tweets/:id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"tweets",
+								":id"
+							],
+							"query": [
+								{
+									"key": "tweet.fields",
+									"value": "",
+									"description": "Comma-separated list of fields for the Tweet object.\n\nAllowed values:\nattachments,author_id,context_annotations,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang,non_public_metrics,organic_metrics,possibly_sensitive,promoted_metrics,public_metrics,referenced_tweets,reply_settings,source,text,withheld\n\nDefault values:\nid,text\n\nOAuth1.0a User Context authorization required if any of the following fields are included in the request:\nnon_public_metrics,organic_metrics,promoted_metrics\n",
+									"disabled": true
+								},
+								{
+									"key": "expansions",
+									"value": "",
+									"description": "Comma-separated list of fields to expand. Expansions enable requests to expand an ID into a full object in the includes response object.\n\nAllowed values: attachments.poll_ids,attachments.media_keys,author_id,geo.place_id,in_reply_to_user_id,referenced_tweets.id,entities.mentions.username,referenced_tweets.id.author_id\n\nDefault values: none",
+									"disabled": true
+								},
+								{
+									"key": "media.fields",
+									"value": "",
+									"description": "Comma-separated list of fields for the media object. Expansion required.\n\nAllowed values:\nduration_ms,height,media_key,non_public_metrics,organic_metrics,preview_image_url,promoted_metrics,public_metrics,type,url,width\n\nDefault values:\nmedia_key,type\n\nOAuth1.0a User Context authorization required if any of the following fields are included in the request:\nnon_public_metrics,organic_metrics,promoted_metrics",
+									"disabled": true
+								},
+								{
+									"key": "place.fields",
+									"value": "",
+									"description": "Comma-separated list of fields for the place object. Expansion required.\n\nAllowed values:\ncontained_within,country,country_code,full_name,geo,id,name,place_type\n\nDefault values:\nid,full_name",
+									"disabled": true
+								},
+								{
+									"key": "poll.fields",
+									"value": "",
+									"description": "Comma-separated list of fields for the poll object. Expansion required.\n\nAllowed values:\nduration_minutes,end_datetime,id,options,voting_status\n\nDefault values:\nid, options",
+									"disabled": true
+								},
+								{
+									"key": "user.fields",
+									"value": "",
+									"description": "Comma-separated list of fields for the user object. Expansion required.\n\nAllowed values:\ncreated_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld\n\nDefault values:\nid,name,username",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"type": "string",
+									"description": "Required. Enter a single Tweet ID."
+								}
+							]
+						},
+						"description": "This endpoint returns details about the Tweet specified by the requested ID.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets-id) for this endpoint."
+					},
+					"response": [
+						{
+							"name": "200 Success - Default Payload (No additonal fields requested)",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.twitter.com/2/tweets/:id",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"tweets",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "20"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-disposition",
+									"value": "attachment; filename=json.json"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "79"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Wed, 24 Jun 2020 17:13:16 GMT"
+								},
+								{
+									"key": "server",
+									"value": "tsa_b"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=631138519"
+								},
+								{
+									"key": "x-access-level",
+									"value": "read"
+								},
+								{
+									"key": "x-connection-hash",
+									"value": "86a90a7aa13fde1840d52be0d1faf5c4"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-rate-limit-limit",
+									"value": "15"
+								},
+								{
+									"key": "x-rate-limit-remaining",
+									"value": "0"
+								},
+								{
+									"key": "x-rate-limit-reset",
+									"value": "1593019345"
+								},
+								{
+									"key": "x-response-time",
+									"value": "211"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": \"20\",\n        \"text\": \"just setting up my twttr\"\n    }\n}"
+						},
+						{
+							"name": "429 Rate Limit Exceeded",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.twitter.com/2/tweets/:id?tweet.fields=author_id&expansions=author_id",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"tweets",
+										":id"
+									],
+									"query": [
+										{
+											"key": "tweet.fields",
+											"value": "author_id",
+											"description": "attachments,author_id,context_annotations,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang,non_public_metrics,organic_metrics,possibly_sensitive,promoted_metrics,public_metrics,referenced_tweets,source,text,withheld"
+										},
+										{
+											"key": "expansions",
+											"value": "author_id",
+											"description": "Comma-separated list of fields to expand. Expansions enable requests to expand an ID into a full object in the includes response object.\nAllowed values: attachments.poll_ids,attachments.media_keys,author_id,geo.place_id,in_reply_to_user_id,referenced_tweets.id\nDefault values: none"
+										},
+										{
+											"key": "media.fields",
+											"value": "",
+											"description": "duration_ms,height,media_key,non_public_metrics,organic_metrics,preview_image_url,promoted_metrics,public_metrics,type,url,width",
+											"disabled": true
+										},
+										{
+											"key": "poll.fields",
+											"value": "",
+											"description": "duration_minutes,end_datetime,id,options,voting_status",
+											"disabled": true
+										},
+										{
+											"key": "place.fields",
+											"value": "",
+											"description": "contained_within,country,country_code,full_name,geo,id,name,place_type",
+											"disabled": true
+										},
+										{
+											"key": "user.fields",
+											"value": null,
+											"description": "created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "20"
+										}
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "46"
+								},
+								{
+									"key": "content-type",
+									"value": "text/plain;charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Fri, 26 Jun 2020 15:19:39 GMT"
+								},
+								{
+									"key": "server",
+									"value": "tsa_b"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=631138519"
+								},
+								{
+									"key": "x-connection-hash",
+									"value": "bf6b8cccb0bc95bc56a50be4db9a2d09"
+								},
+								{
+									"key": "x-rate-limit-limit",
+									"value": "15"
+								},
+								{
+									"key": "x-rate-limit-remaining",
+									"value": "0"
+								},
+								{
+									"key": "x-rate-limit-reset",
+									"value": "1593185073"
+								},
+								{
+									"key": "x-response-time",
+									"value": "6"
+								}
+							],
+							"cookie": [],
+							"body": "Rate limit exceeded\n"
+						},
+						{
+							"name": "200 Success - Request Place Fields",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.twitter.com/2/tweets/:id?expansions=geo.place_id&place.fields=contained_within,country,country_code,full_name,geo,id,name,place_type",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"tweets",
+										":id"
+									],
+									"query": [
+										{
+											"key": "tweet.fields",
+											"value": null,
+											"description": "attachments,author_id,context_annotations,created_at,entities,geo,id,in_reply_to_user_id,lang,non_public_metrics,organic_metrics,possibly_sensitive,promoted_metrics,public_metrics,referenced_tweets,source,text,withheld",
+											"disabled": true
+										},
+										{
+											"key": "expansions",
+											"value": "geo.place_id",
+											"description": "Comma-separated list of fields to expand. Expansions enable requests to expand an ID into a full object in the includes response object.\nAllowed values: attachments.poll_ids,attachments.media_keys,author_id,geo.place_id,in_reply_to_user_id,referenced_tweets.id\nDefault values: none"
+										},
+										{
+											"key": "media.fields",
+											"value": "",
+											"description": "duration_ms,height,media_key,non_public_metrics,organic_metrics,preview_image_url,promoted_metrics,public_metrics,type,url,width",
+											"disabled": true
+										},
+										{
+											"key": "poll.fields",
+											"value": "duration_minutes,end_datetime,id,options,voting_status",
+											"description": "duration_minutes,end_datetime,id,options,voting_status",
+											"disabled": true
+										},
+										{
+											"key": "place.fields",
+											"value": "contained_within,country,country_code,full_name,geo,id,name,place_type",
+											"description": "contained_within,country,country_code,full_name,geo,id,name,place_type"
+										},
+										{
+											"key": "user.fields",
+											"value": null,
+											"description": "created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1136017751028449283"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-disposition",
+									"value": "attachment; filename=json.json"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "344"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Fri, 26 Jun 2020 14:33:35 GMT"
+								},
+								{
+									"key": "server",
+									"value": "tsa_b"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=631138519"
+								},
+								{
+									"key": "x-access-level",
+									"value": "read"
+								},
+								{
+									"key": "x-connection-hash",
+									"value": "61335280ba9cb7845500465db4fa22ab"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-rate-limit-limit",
+									"value": "15"
+								},
+								{
+									"key": "x-rate-limit-remaining",
+									"value": "12"
+								},
+								{
+									"key": "x-rate-limit-reset",
+									"value": "1593182720"
+								},
+								{
+									"key": "x-response-time",
+									"value": "59"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"geo\": {\n            \"place_id\": \"01a9a39529b27f36\"\n        },\n        \"id\": \"1136017751028449283\",\n        \"text\": \"We’re getting ready to #TapIntoTwitter with our NYC developer community! See you soon @TwitterNYC https://t.co/5rEn5dhsAq\"\n    },\n    \"includes\": {\n        \"places\": [\n            {\n                \"country\": \"United States\",\n                \"country_code\": \"US\",\n                \"full_name\": \"Manhattan, NY\",\n                \"geo\": {\n                    \"type\": \"Feature\",\n                    \"bbox\": [\n                        -74.026675,\n                        40.683935,\n                        -73.910408,\n                        40.877483\n                    ],\n                    \"properties\": {}\n                },\n                \"id\": \"01a9a39529b27f36\",\n                \"name\": \"Manhattan\",\n                \"place_type\": \"city\"\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "200 Success - Request Poll Fields",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.twitter.com/2/tweets/:id?expansions=attachments.poll_ids&poll.fields=duration_minutes,end_datetime,id,options,voting_status",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"tweets",
+										":id"
+									],
+									"query": [
+										{
+											"key": "tweet.fields",
+											"value": null,
+											"description": "attachments,author_id,context_annotations,created_at,entities,geo,id,in_reply_to_user_id,lang,non_public_metrics,organic_metrics,possibly_sensitive,promoted_metrics,public_metrics,referenced_tweets,source,text,withheld",
+											"disabled": true
+										},
+										{
+											"key": "expansions",
+											"value": "attachments.poll_ids",
+											"description": "Comma-separated list of fields to expand. Expansions enable requests to expand an ID into a full object in the includes response object.\nAllowed values: attachments.poll_ids,attachments.media_keys,author_id,geo.place_id,in_reply_to_user_id,referenced_tweets.id\nDefault values: none"
+										},
+										{
+											"key": "media.fields",
+											"value": "",
+											"description": "duration_ms,height,media_key,non_public_metrics,organic_metrics,preview_image_url,promoted_metrics,public_metrics,type,url,width",
+											"disabled": true
+										},
+										{
+											"key": "poll.fields",
+											"value": "duration_minutes,end_datetime,id,options,voting_status",
+											"description": "duration_minutes,end_datetime,id,options,voting_status"
+										},
+										{
+											"key": "place.fields",
+											"value": null,
+											"description": "contained_within,country,country_code,full_name,geo,id,name,place_type",
+											"disabled": true
+										},
+										{
+											"key": "user.fields",
+											"value": null,
+											"description": "created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1199786642791452673"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-disposition",
+									"value": "attachment; filename=json.json"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "258"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Fri, 26 Jun 2020 14:30:20 GMT"
+								},
+								{
+									"key": "server",
+									"value": "tsa_b"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=631138519"
+								},
+								{
+									"key": "x-access-level",
+									"value": "read"
+								},
+								{
+									"key": "x-connection-hash",
+									"value": "61335280ba9cb7845500465db4fa22ab"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-rate-limit-limit",
+									"value": "15"
+								},
+								{
+									"key": "x-rate-limit-remaining",
+									"value": "14"
+								},
+								{
+									"key": "x-rate-limit-reset",
+									"value": "1593182720"
+								},
+								{
+									"key": "x-response-time",
+									"value": "56"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"attachments\": {\n            \"poll_ids\": [\n                \"1199786642468413448\"\n            ]\n        },\n        \"id\": \"1199786642791452673\",\n        \"text\": \"C#\"\n    },\n    \"includes\": {\n        \"polls\": [\n            {\n                \"duration_minutes\": 1440,\n                \"end_datetime\": \"2019-11-28T20:26:41.000Z\",\n                \"id\": \"1199786642468413448\",\n                \"options\": [\n                    {\n                        \"position\": 1,\n                        \"label\": \"“C Sharp”\",\n                        \"votes\": 795\n                    },\n                    {\n                        \"position\": 2,\n                        \"label\": \"“C Hashtag”\",\n                        \"votes\": 156\n                    }\n                ],\n                \"voting_status\": \"closed\"\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "200 Success - Deleted Tweet",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.twitter.com/2/tweets/:id?tweet.fields=attachments,author_id,created_at,entities,geo,id,in_reply_to_user_id,lang,possibly_sensitive,referenced_tweets,source,text,withheld",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"tweets",
+										":id"
+									],
+									"query": [
+										{
+											"key": "tweet.fields",
+											"value": "attachments,author_id,created_at,entities,geo,id,in_reply_to_user_id,lang,possibly_sensitive,referenced_tweets,source,text,withheld",
+											"description": "attachments,author_id,context_annotations,created_at,entities,geo,id,in_reply_to_user_id,lang,non_public_metrics,organic_metrics,possibly_sensitive,promoted_metrics,public_metrics,referenced_tweets,source,text,withheld"
+										},
+										{
+											"key": "expansions",
+											"value": null,
+											"description": "Comma-separated list of fields to expand. Expansions enable requests to expand an ID into a full object in the includes response object.\n\nAllowed values: attachments.poll_ids,attachments.media_keys,author_id,geo.place_id,in_reply_to_user_id,referenced_tweets.id\n\nDefault values: none",
+											"disabled": true
+										},
+										{
+											"key": "media.fields",
+											"value": null,
+											"description": "duration_ms,height,media_key,non_public_metrics,organic_metrics,preview_image_url,promoted_metrics,public_metrics,type,url,width",
+											"disabled": true
+										},
+										{
+											"key": "poll.fields",
+											"value": null,
+											"description": "duration_minutes,end_datetime,id,options,voting_status",
+											"disabled": true
+										},
+										{
+											"key": "place.fields",
+											"value": null,
+											"description": "contained_within,country,country_code,full_name,geo,id,name,place_type",
+											"disabled": true
+										},
+										{
+											"key": "user.fields",
+											"value": null,
+											"description": "created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1276230436478386177"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-disposition",
+									"value": "attachment; filename=json.json"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "197"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Fri, 26 Jun 2020 14:19:40 GMT"
+								},
+								{
+									"key": "server",
+									"value": "tsa_b"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=631138519"
+								},
+								{
+									"key": "x-access-level",
+									"value": "read"
+								},
+								{
+									"key": "x-connection-hash",
+									"value": "61335280ba9cb7845500465db4fa22ab"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-rate-limit-limit",
+									"value": "15"
+								},
+								{
+									"key": "x-rate-limit-remaining",
+									"value": "8"
+								},
+								{
+									"key": "x-rate-limit-reset",
+									"value": "1593181441"
+								},
+								{
+									"key": "x-response-time",
+									"value": "134"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"detail\": \"Could not find tweet with id: [1276230436478386177].\",\n            \"title\": \"Not Found Error\",\n            \"resource_type\": \"tweet\",\n            \"parameter\": \"id\",\n            \"value\": \"1276230436478386177\",\n            \"type\": \"https://api.twitter.com/2/problems/resource-not-found\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "200 Success - Request Media Fields",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.twitter.com/2/tweets/:id?tweet.fields=attachments,author_id,created_at,entities,geo,id,in_reply_to_user_id,lang,possibly_sensitive,referenced_tweets,source,text,withheld&expansions=attachments.media_keys&media.fields=duration_ms,height,media_key,preview_image_url,public_metrics,type,url,width",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"tweets",
+										":id"
+									],
+									"query": [
+										{
+											"key": "tweet.fields",
+											"value": "attachments,author_id,created_at,entities,geo,id,in_reply_to_user_id,lang,possibly_sensitive,referenced_tweets,source,text,withheld",
+											"description": "attachments,author_id,context_annotations,created_at,entities,geo,id,in_reply_to_user_id,lang,non_public_metrics,organic_metrics,possibly_sensitive,promoted_metrics,public_metrics,referenced_tweets,source,text,withheld"
+										},
+										{
+											"key": "expansions",
+											"value": "attachments.media_keys",
+											"description": "Comma-separated list of fields to expand. Expansions enable requests to expand an ID into a full object in the includes response object.\n\nAllowed values: attachments.poll_ids,attachments.media_keys,author_id,geo.place_id,in_reply_to_user_id,referenced_tweets.id\n\nDefault values: none"
+										},
+										{
+											"key": "media.fields",
+											"value": "duration_ms,height,media_key,preview_image_url,public_metrics,type,url,width",
+											"description": "duration_ms,height,media_key,non_public_metrics,organic_metrics,preview_image_url,promoted_metrics,public_metrics,type,url,width"
+										},
+										{
+											"key": "poll.fields",
+											"value": null,
+											"description": "duration_minutes,end_datetime,id,options,voting_status",
+											"disabled": true
+										},
+										{
+											"key": "place.fields",
+											"value": null,
+											"description": "contained_within,country,country_code,full_name,geo,id,name,place_type",
+											"disabled": true
+										},
+										{
+											"key": "user.fields",
+											"value": null,
+											"description": "created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1263145271946551300"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-disposition",
+									"value": "attachment; filename=json.json"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "547"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Fri, 26 Jun 2020 14:23:50 GMT"
+								},
+								{
+									"key": "server",
+									"value": "tsa_b"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=631138519"
+								},
+								{
+									"key": "x-access-level",
+									"value": "read"
+								},
+								{
+									"key": "x-connection-hash",
+									"value": "61335280ba9cb7845500465db4fa22ab"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-rate-limit-limit",
+									"value": "15"
+								},
+								{
+									"key": "x-rate-limit-remaining",
+									"value": "4"
+								},
+								{
+									"key": "x-rate-limit-reset",
+									"value": "1593181441"
+								},
+								{
+									"key": "x-response-time",
+									"value": "146"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"attachments\": {\n            \"media_keys\": [\n                \"13_1263145212760805376\"\n            ]\n        },\n        \"author_id\": \"783214\",\n        \"created_at\": \"2020-05-20T16:31:15.000Z\",\n        \"entities\": {\n            \"urls\": [\n                {\n                    \"start\": 154,\n                    \"end\": 177,\n                    \"url\": \"https://t.co/pV53mvjAVT\",\n                    \"expanded_url\": \"https://twitter.com/Twitter/status/1263145271946551300/video/1\",\n                    \"display_url\": \"pic.twitter.com/pV53mvjAVT\"\n                }\n            ]\n        },\n        \"id\": \"1263145271946551300\",\n        \"lang\": \"en\",\n        \"possibly_sensitive\": false,\n        \"source\": \"Sprinklr\",\n        \"text\": \"Testing, testing...\\n\\nA new way to have a convo with exactly who you want. We’re starting with a small % globally, so keep your 👀 out to see it in action. https://t.co/pV53mvjAVT\"\n    },\n    \"includes\": {\n        \"media\": [\n            {\n                \"duration_ms\": 46947,\n                \"height\": 1080,\n                \"media_key\": \"13_1263145212760805376\",\n                \"preview_image_url\": \"https://pbs.twimg.com/media/EYeX7akWsAIP1_1.jpg\",\n                \"public_metrics\": {\n                    \"view_count\": 6891098\n                },\n                \"type\": \"video\",\n                \"width\": 1920\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "200 Success - Request Tweet fields",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.twitter.com/2/tweets/:id?tweet.fields=attachments,author_id,created_at,entities,geo,id,in_reply_to_user_id,lang,possibly_sensitive,referenced_tweets,source,text,withheld",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"tweets",
+										":id"
+									],
+									"query": [
+										{
+											"key": "tweet.fields",
+											"value": "attachments,author_id,created_at,entities,geo,id,in_reply_to_user_id,lang,possibly_sensitive,referenced_tweets,source,text,withheld",
+											"description": "attachments,author_id,context_annotations,created_at,entities,geo,id,in_reply_to_user_id,lang,non_public_metrics,organic_metrics,possibly_sensitive,promoted_metrics,public_metrics,referenced_tweets,source,text,withheld"
+										},
+										{
+											"key": "expansions",
+											"value": null,
+											"description": "Comma-separated list of fields to expand. Expansions enable requests to expand an ID into a full object in the includes response object.\n\nAllowed values: attachments.poll_ids,attachments.media_keys,author_id,geo.place_id,in_reply_to_user_id,referenced_tweets.id\n\nDefault values: none",
+											"disabled": true
+										},
+										{
+											"key": "media.fields",
+											"value": null,
+											"description": "duration_ms,height,media_key,non_public_metrics,organic_metrics,preview_image_url,promoted_metrics,public_metrics,type,url,width",
+											"disabled": true
+										},
+										{
+											"key": "poll.fields",
+											"value": null,
+											"description": "duration_minutes,end_datetime,id,options,voting_status",
+											"disabled": true
+										},
+										{
+											"key": "place.fields",
+											"value": null,
+											"description": "contained_within,country,country_code,full_name,geo,id,name,place_type",
+											"disabled": true
+										},
+										{
+											"key": "user.fields",
+											"value": null,
+											"description": "created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1275828087666679809"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-disposition",
+									"value": "attachment; filename=json.json"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "605"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Fri, 26 Jun 2020 14:14:13 GMT"
+								},
+								{
+									"key": "server",
+									"value": "tsa_b"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=631138519"
+								},
+								{
+									"key": "x-access-level",
+									"value": "read"
+								},
+								{
+									"key": "x-connection-hash",
+									"value": "61335280ba9cb7845500465db4fa22ab"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-rate-limit-limit",
+									"value": "15"
+								},
+								{
+									"key": "x-rate-limit-remaining",
+									"value": "9"
+								},
+								{
+									"key": "x-rate-limit-reset",
+									"value": "1593181441"
+								},
+								{
+									"key": "x-response-time",
+									"value": "138"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"author_id\": \"2244994945\",\n        \"created_at\": \"2020-06-24T16:28:14.000Z\",\n        \"entities\": {\n            \"urls\": [\n                {\n                    \"start\": 140,\n                    \"end\": 163,\n                    \"url\": \"https://t.co/IKM3zo6ngu\",\n                    \"expanded_url\": \"https://blog.twitter.com/developer/en_us/topics/tips/2020/how-to-analyze-the-sentiment-of-your-own-tweets.html\",\n                    \"display_url\": \"blog.twitter.com/developer/en_u…\",\n                    \"images\": [\n                        {\n                            \"url\": \"https://pbs.twimg.com/news_img/1275828115110060033/WIbBrSld?format=jpg&name=orig\",\n                            \"width\": 1600,\n                            \"height\": 600\n                        },\n                        {\n                            \"url\": \"https://pbs.twimg.com/news_img/1275828115110060033/WIbBrSld?format=jpg&name=150x150\",\n                            \"width\": 150,\n                            \"height\": 150\n                        }\n                    ],\n                    \"status\": 200,\n                    \"title\": \"How to analyze the sentiment of your own Tweets\",\n                    \"description\": \"This post helps developers try out sentiment analysis by analyzing their own past Tweets.\",\n                    \"unwound_url\": \"https://blog.twitter.com/developer/en_us/topics/tips/2020/how-to-analyze-the-sentiment-of-your-own-tweets.html\"\n                }\n            ]\n        },\n        \"id\": \"1275828087666679809\",\n        \"lang\": \"en\",\n        \"possibly_sensitive\": false,\n        \"source\": \"Twitter Web App\",\n        \"text\": \"Learn how to create a sentiment score for your Tweets with Microsoft Azure, Python, and Twitter Developer Labs recent search functionality.\\nhttps://t.co/IKM3zo6ngu\"\n    }\n}"
+						}
+					]
+				},
+				{
 					"name": "Multiple Tweets",
 					"request": {
 						"method": "GET",
@@ -4594,10 +5547,10 @@
 			]
 		},
 		{
-			"name": "Recent Search",
+			"name": "Search Tweets",
 			"item": [
 				{
-					"name": "Recent Search",
+					"name": "Recent search",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -5240,9 +6193,122 @@
 							"body": "{\n    \"data\": [\n        {\n            \"attachments\": {\n                \"media_keys\": [\n                    \"16_1276035971193044992\"\n                ]\n            },\n            \"author_id\": \"63046977\",\n            \"created_at\": \"2020-06-25T06:14:19.000Z\",\n            \"entities\": {\n                \"mentions\": [\n                    {\n                        \"start\": 0,\n                        \"end\": 8,\n                        \"username\": \"snowman\"\n                    }\n                ],\n                \"urls\": [\n                    {\n                        \"start\": 90,\n                        \"end\": 113,\n                        \"url\": \"https://t.co/14TzLYBBXi\",\n                        \"expanded_url\": \"https://twitter.com/happycamper/status/1276035977375477760/photo/1\",\n                        \"display_url\": \"pic.twitter.com/14TzLYBBXi\"\n                    }\n                ]\n            },\n            \"geo\": {\n                \"place_id\": \"f7eb2fa2fea288b1\"\n            },\n            \"id\": \"1276035977375477760\",\n            \"in_reply_to_user_id\": \"17200003\",\n            \"lang\": \"en\",\n            \"possibly_sensitive\": false,\n            \"referenced_tweets\": [\n                {\n                    \"type\": \"replied_to\",\n                    \"id\": \"1275653067283759104\"\n                }\n            ],\n            \"source\": \"Twitter for iPhone\",\n            \"text\": \"@snowman Ooo, thanks error message, public_metircs are not the metrics you’re looking for https://t.co/14TzLYBBXi\"\n        },\n        {\n            \"author_id\": \"17200003\",\n            \"created_at\": \"2020-06-24T20:04:54.000Z\",\n            \"id\": \"1275882613572583424\",\n            \"in_reply_to_user_id\": \"17200003\",\n            \"lang\": \"en\",\n            \"possibly_sensitive\": false,\n            \"referenced_tweets\": [\n                {\n                    \"type\": \"replied_to\",\n                    \"id\": \"1273733248749690880\"\n                }\n            ],\n            \"source\": \"Twitter for Android\",\n            \"text\": \"Using Labs Recent search for polling use cases has been 🔥👍. A simple alternative to streaming in many cases...\"\n        },\n        {\n            \"attachments\": {\n                \"media_keys\": [\n                    \"16_1275763720522625029\"\n                ]\n            },\n            \"author_id\": \"196883832\",\n            \"created_at\": \"2020-06-24T12:12:29.000Z\",\n            \"entities\": {\n                \"mentions\": [\n                    {\n                        \"start\": 0,\n                        \"end\": 8,\n                        \"username\": \"snowman\"\n                    },\n                    {\n                        \"start\": 9,\n                        \"end\": 21,\n                        \"username\": \"happycamper\"\n                    }\n                ],\n                \"urls\": [\n                    {\n                        \"start\": 22,\n                        \"end\": 45,\n                        \"url\": \"https://t.co/qvk5BCBtqh\",\n                        \"expanded_url\": \"https://twitter.com/jellybeanjones/status/1275763727908798470/photo/1\",\n                        \"display_url\": \"pic.twitter.com/qvk5BCBtqh\"\n                    }\n                ]\n            },\n            \"geo\": {\n                \"place_id\": \"f7eb2fa2fea288b1\"\n            },\n            \"id\": \"1275763727908798470\",\n            \"in_reply_to_user_id\": \"17200003\",\n            \"lang\": \"und\",\n            \"possibly_sensitive\": false,\n            \"referenced_tweets\": [\n                {\n                    \"type\": \"replied_to\",\n                    \"id\": \"1275653067283759104\"\n                }\n            ],\n            \"source\": \"Twitter for  iPhone\",\n            \"text\": \"@snowman @happycamper https://t.co/qvk5BCBtqh\"\n        },\n        {\n            \"author_id\": \"17200003\",\n            \"created_at\": \"2020-06-24T04:52:46.000Z\",\n            \"entities\": {\n                \"mentions\": [\n                    {\n                        \"start\": 0,\n                        \"end\": 12,\n                        \"username\": \"happycamper\"\n                    }\n                ]\n            },\n            \"id\": \"1275653067283759104\",\n            \"in_reply_to_user_id\": \"63046977\",\n            \"lang\": \"en\",\n            \"possibly_sensitive\": false,\n            \"referenced_tweets\": [\n                {\n                    \"type\": \"replied_to\",\n                    \"id\": \"1274086728471461889\"\n                }\n            ],\n            \"source\": \"Twitter Web App\",\n            \"text\": \"@happycamper Wait, when I try that, I get an error: {\\n    \\\"errors\\\": [\\n        { \\\"message\\\": \\\"[public_metircs] is not one of [attachments,author_id,context_annotations,created_at,entities,geo,id,in_reply_to_user_id,lang,non_public_metrics,organic_metrics,promoted_metrics,public_metrics]\\\"\"\n        }\n    ],\n    \"includes\": {\n        \"users\": [\n            {\n                \"created_at\": \"2009-08-05T05:46:48.000Z\",\n                \"description\": \"Part-time fiddler, wanderer, yogi, scubadiver #savegamehenge Full time explorer, festvarian, music lover, nerd, @TwitterBoulder - Opinions are my own. she/her\",\n                \"id\": \"63046977\",\n                \"name\": \"Emily Waligoske 🏕\",\n                \"username\": \"happycamper\"\n            },\n            {\n                \"created_at\": \"2008-11-05T23:06:37.000Z\",\n                \"description\": \"family, travel, music, farming, photography, coding, weather, rain, snow, snowmelt, hydrology, flood early-warning systems. From MN, live in CO. @TwitterDev\",\n                \"id\": \"17200003\",\n                \"name\": \"Jim Moffitt\",\n                \"username\": \"snowman\"\n            },\n            {\n                \"created_at\": \"2010-09-30T03:36:40.000Z\",\n                \"description\": \"IT wizard @ Twitter Boulder 🧙\\u200d♂️🗻💻 🎧🌞✌🏽Turn my headphones up! #BlackLivesMatter\",\n                \"id\": \"196883832\",\n                \"name\": \"zachariah jones\",\n                \"username\": \"jellybeanjones\"\n            }\n        ],\n        \"tweets\": [\n            {\n                \"author_id\": \"17200003\",\n                \"created_at\": \"2020-06-24T04:52:46.000Z\",\n                \"entities\": {\n                    \"mentions\": [\n                        {\n                            \"start\": 0,\n                            \"end\": 12,\n                            \"username\": \"happycamper\"\n                        }\n                    ]\n                },\n                \"id\": \"1275653067283759104\",\n                \"in_reply_to_user_id\": \"63046977\",\n                \"lang\": \"en\",\n                \"possibly_sensitive\": false,\n                \"referenced_tweets\": [\n                    {\n                        \"type\": \"replied_to\",\n                        \"id\": \"1274086728471461889\"\n                    }\n                ],\n                \"source\": \"Twitter Web App\",\n                \"text\": \"@happycamper Wait, when I try that, I get an error: {\\n    \\\"errors\\\": [\\n        { \\\"message\\\": \\\"[public_metircs] is not one of [attachments,author_id,context_annotations,created_at,entities,geo,id,in_reply_to_user_id,lang,non_public_metrics,organic_metrics,promoted_metrics,public_metrics]\\\"\"\n            },\n            {\n                \"author_id\": \"17200003\",\n                \"created_at\": \"2020-06-18T21:44:05.000Z\",\n                \"id\": \"1273733248749690880\",\n                \"lang\": \"en\",\n                \"possibly_sensitive\": false,\n                \"source\": \"Twitter Web App\",\n                \"text\": \"So, what's your favorite thing about Twitter Developer Labs? \\n\\nI find it hard to pick one and am loving the ability to select the Tweet object fields of interest. \\n\\ntweet.fields=created_at,author_id,context_annotations\"\n            },\n            {\n                \"author_id\": \"63046977\",\n                \"created_at\": \"2020-06-19T21:08:42.000Z\",\n                \"entities\": {\n                    \"hashtags\": [\n                        {\n                            \"start\": 209,\n                            \"end\": 215,\n                            \"tag\": \"fresh\"\n                        }\n                    ],\n                    \"mentions\": [\n                        {\n                            \"start\": 0,\n                            \"end\": 8,\n                            \"username\": \"snowman\"\n                        }\n                    ]\n                },\n                \"id\": \"1274086728471461889\",\n                \"in_reply_to_user_id\": \"17200003\",\n                \"lang\": \"en\",\n                \"possibly_sensitive\": false,\n                \"referenced_tweets\": [\n                    {\n                        \"type\": \"replied_to\",\n                        \"id\": \"1273733248749690880\"\n                    }\n                ],\n                \"source\": \"Twitter Web App\",\n                \"text\": \"@snowman My fave is the new the metrics, especially for building apps to help Twitter users track the metrics for their Tweets.\\ntweet.fields=public_metircs,non_public_metrics,organic_metrics,promoted_metrics  #fresh\"\n            }\n        ]\n    },\n    \"meta\": {\n        \"newest_id\": \"1276035977375477760\",\n        \"oldest_id\": \"1275653067283759104\",\n        \"result_count\": 4\n    }\n}"
 						}
 					]
+				},
+				{
+					"name": "Full-archive search",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.twitter.com/2/tweets/search/all?query=",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"tweets",
+								"search",
+								"all"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "",
+									"description": "Required. Query for matching Tweets. Up to 512 characters."
+								},
+								{
+									"key": "start_time",
+									"value": "",
+									"description": "The oldest UTC timestamp (from most recent 7 days) from which the Tweets will be provided. YYYY-MM-DDTHH:mm:ssZ (ISO 8601/RFC 3339).",
+									"disabled": true
+								},
+								{
+									"key": "end_time",
+									"value": "",
+									"description": "The newest, most recent UTC timestamp to which the Tweets will be provided. YYYY-MM-DDTHH:mm:ssZ (ISO 8601/RFC 3339).",
+									"disabled": true
+								},
+								{
+									"key": "since_id",
+									"value": "",
+									"description": "Returns results with a Tweet ID greater than (that is, more recent than) the specified ID. The ID specified is exclusive and responses will not include it.",
+									"disabled": true
+								},
+								{
+									"key": "until_id",
+									"value": "",
+									"description": "Returns results with a Tweet ID less than (that is, older than) the specified ID. The ID specified is exclusive and responses will not include it.",
+									"disabled": true
+								},
+								{
+									"key": "max_results",
+									"value": "",
+									"description": "The maximum number of search results to be returned by a request. A number between 10 and the system limit (currently 100). By default, a request response will return 10 results.",
+									"disabled": true
+								},
+								{
+									"key": "next_token",
+									"value": "",
+									"description": "This parameter is used to get the next 'page' of results. The value used with the parameter is pulled directly from the response provided by the API, and should not be modified.",
+									"disabled": true
+								},
+								{
+									"key": "tweet.fields",
+									"value": "",
+									"description": "Comma-separated list of fields for the Tweet object.\n\nAllowed values:\nattachments,author_id,context_annotations,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang,possibly_sensitive,public_metrics,referenced_tweets,reply_settings,source,text,withheld\n\nDefault values:\nid,text\n",
+									"disabled": true
+								},
+								{
+									"key": "expansions",
+									"value": "",
+									"description": "Comma-separated list of fields to expand. Expansions enable requests to expand an ID into a full object in the includes response object.\n\nAllowed values: attachments.poll_ids,attachments.media_keys,author_id,geo.place_id,in_reply_to_user_id,referenced_tweets.id,entities.mentions.username,referenced_tweets.id.author_id\n\nDefault values: none",
+									"disabled": true
+								},
+								{
+									"key": "media.fields",
+									"value": "",
+									"description": "Comma-separated list of fields for the media object. Expansion required.\n\nAllowed values:\nduration_ms,height,media_key,preview_image_url,public_metrics,type,url,width\n\nDefault values:\nmedia_key,type\n",
+									"disabled": true
+								},
+								{
+									"key": "place.fields",
+									"value": "",
+									"description": "Comma-separated list of fields for the place object. Expansion required.\n\nAllowed values:\ncontained_within,country,country_code,full_name,geo,id,name,place_type\n\nDefault values:\nid,full_name",
+									"disabled": true
+								},
+								{
+									"key": "poll.fields",
+									"value": "",
+									"description": "Comma-separated list of fields for the poll object. Expansion required.\n\nAllowed values:\nduration_minutes,end_datetime,id,options,voting_status\n\nDefault values:\nid, options",
+									"disabled": true
+								},
+								{
+									"key": "user.fields",
+									"value": "",
+									"description": "Comma-separated list of fields for the user object. Expansion required.\n\nAllowed values:\ncreated_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld\n\nDefault values:\nid,name,username",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Search across the complete history of public Tweets matching a search query; since the first Tweet was created in March 2006.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-all) for this endpoint.\n\n\n**NOTE** this endpoint requires access via the Academic Research product track"
+					},
+					"response": []
 				}
 			],
-			"description": "Search for public Tweets created in the last 7 days.",
+			"description": "Search for public Tweets created in the last 7 days, or the complete history of public Tweets.",
 			"event": [
 				{
 					"listen": "prerequest",
