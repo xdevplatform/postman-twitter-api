@@ -5035,7 +5035,7 @@
 			]
 		},
 		{
-			"name": "Follows Lookup",
+			"name": "Follows",
 			"item": [
 				{
 					"name": "Followers of user ID",
@@ -5164,9 +5164,244 @@
 						"description": "Returns a list of users the specified user ID is following.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/get-users-id-following) for this endpoint."
 					},
 					"response": []
+				},
+				{
+					"name": "Follow a user ID",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// This script extracts the ID of the authenticating user, so you do not have to pass it yourself.",
+									"if (!pm.environment.get('access_token') || !pm.request.url.path.includes(':id')) {",
+									"    return;",
+									"}",
+									"",
+									"const [userId] = pm.environment.get('access_token').split('-');",
+									"",
+									"if (!userId) {",
+									"    return;",
+									"}",
+									"",
+									"const userIdIndex = pm.request.url.path.indexOf(':id');",
+									"pm.request.url.path[userIdIndex] = userId;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "oauth1",
+							"oauth1": [
+								{
+									"key": "tokenSecret",
+									"value": "{{token_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "disableHeaderEncoding",
+									"value": false,
+									"type": "boolean"
+								},
+								{
+									"key": "addParamsToHeader",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								},
+								{
+									"key": "consumerSecret",
+									"value": "{{consumer_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "consumerKey",
+									"value": "{{consumer_key}}",
+									"type": "string"
+								},
+								{
+									"key": "signatureMethod",
+									"value": "HMAC-SHA1",
+									"type": "string"
+								},
+								{
+									"key": "version",
+									"value": "1.0",
+									"type": "string"
+								},
+								{
+									"key": "addEmptyParamsToSign",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"target_user_id\": \"2244994945\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.twitter.com/2/users/:id/following",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"users",
+								":id",
+								"following"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"type": "string",
+									"description": "The ID of the user who wishes to follow an account. The ID must belong to the authenticating user.\n\nIn Postman, you can leave the `id` field empty to let the collection automatically populate it with the user ID of the user in the current environment."
+								}
+							]
+						},
+						"description": "Allows a user ID to follow another user.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/post-users-source_user_id-following) for this endpoint."
+					},
+					"response": []
+				},
+				{
+					"name": "Unfollow a user ID",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// This script extracts the ID of the authenticating user, so you do not have to pass it yourself.",
+									"if (!pm.environment.get('access_token') || !pm.request.url.path.includes(':source_user_id')) {",
+									"    return;",
+									"}",
+									"",
+									"const [userId] = pm.environment.get('access_token').split('-');",
+									"",
+									"if (!userId) {",
+									"    return;",
+									"}",
+									"",
+									"const userIdIndex = pm.request.url.path.indexOf(':source_user_id');",
+									"pm.request.url.path[userIdIndex] = userId;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "oauth1",
+							"oauth1": [
+								{
+									"key": "tokenSecret",
+									"value": "{{token_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "disableHeaderEncoding",
+									"value": false,
+									"type": "boolean"
+								},
+								{
+									"key": "addParamsToHeader",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								},
+								{
+									"key": "consumerSecret",
+									"value": "{{consumer_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "consumerKey",
+									"value": "{{consumer_key}}",
+									"type": "string"
+								},
+								{
+									"key": "signatureMethod",
+									"value": "HMAC-SHA1",
+									"type": "string"
+								},
+								{
+									"key": "version",
+									"value": "1.0",
+									"type": "string"
+								},
+								{
+									"key": "addEmptyParamsToSign",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.twitter.com/2/users/:source_user_id/following/:target_user_id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"users",
+								":source_user_id",
+								"following",
+								":target_user_id"
+							],
+							"variable": [
+								{
+									"key": "source_user_id",
+									"value": "",
+									"type": "string",
+									"description": "The ID of the user who wishes to follow an account. The ID must belong to the authenticating user.\n\nIn Postman, you can leave the `source_user_id` field empty to let the collection automatically populate it with the user ID of the user in the current environment."
+								},
+								{
+									"key": "target_user_id",
+									"value": "",
+									"type": "string",
+									"description": "The ID of the user to unfollow."
+								}
+							]
+						},
+						"description": "Allows a user ID to unfollow another user.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/delete-users-source_user_id-following) for this endpoint."
+					},
+					"response": []
 				}
 			],
-			"description": "The follows lookup endpoints enable you to explore and analyze the relationships between users, which is sometimes called network analysis.",
+			"description": "The follows lookup endpoints enable you to explore and analyze the relationships between users, which is sometimes called network analysis. This set of endpoints also enables you to follow or unfollow accounts on behalf of an authenticated user.",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -9453,7 +9688,6 @@
 					" * This pre-request script retrieves a Bearer token from the client credentials",
 					" * you provide in your environment file.",
 					" */",
-					"",
 					"// Retrieve env variables currently configured",
 					"const env_variables = pm.environment.toObject({",
 					"    excludeDisabled: true",
