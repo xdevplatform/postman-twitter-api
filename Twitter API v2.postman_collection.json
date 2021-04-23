@@ -5585,6 +5585,225 @@
 			"description": "Blocking users is a core feature of security on Twitter.  Using the endpoints in the manage blocks endpoint group, you can build safer experiences for Twitter users or block users programmatically based on previous engagements. You can also unblock users after a given period of time based on the criteria that you determine. You can block a specified user on behalf of an authenticating user or unblock a user with these endpoints."
 		},
 		{
+			"name": "Likes",
+			"item": [
+				{
+					"name": "Like a Tweet",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// This script extracts the ID of the authenticating user, so you do not have to pass it yourself.",
+									"if (!pm.environment.get('access_token') || !pm.request.url.path.includes(':id')) {",
+									"    return;",
+									"}",
+									"",
+									"const [userId] = pm.environment.get('access_token').split('-');",
+									"",
+									"if (!userId) {",
+									"    return;",
+									"}",
+									"",
+									"const userIdIndex = pm.request.url.path.indexOf(':id');",
+									"pm.request.url.path[userIdIndex] = userId;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "oauth1",
+							"oauth1": [
+								{
+									"key": "addParamsToHeader",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "tokenSecret",
+									"value": "{{token_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								},
+								{
+									"key": "consumerSecret",
+									"value": "{{consumer_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "consumerKey",
+									"value": "{{consumer_key}}",
+									"type": "string"
+								},
+								{
+									"key": "signatureMethod",
+									"value": "HMAC-SHA1",
+									"type": "string"
+								},
+								{
+									"key": "version",
+									"value": "1.0",
+									"type": "string"
+								},
+								{
+									"key": "addEmptyParamsToSign",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "// Replace tweet-id-you-want-to-like with the ID you wish to like\n{\n    \"tweet_id\": \"tweet-id-you-want-to-like\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.twitter.com/2/users/:id/likes",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"users",
+								":id",
+								"likes"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "The ID of the user who wishes to like a Tweet. The ID must belong to the authenticating user.\n"
+								}
+							]
+						},
+						"description": "Allows an authenticated user to like a Tweet.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/post-users-user_id-likes) for this endpoint."
+					},
+					"response": []
+				},
+				{
+					"name": "Unlike a Tweet",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// This script extracts the ID of the authenticating user, so you do not have to pass it yourself.",
+									"if (!pm.environment.get('access_token') || !pm.request.url.path.includes(':source_user_id')) {",
+									"    return;",
+									"}",
+									"",
+									"const [userId] = pm.environment.get('access_token').split('-');",
+									"",
+									"if (!userId) {",
+									"    return;",
+									"}",
+									"",
+									"const userIdIndex = pm.request.url.path.indexOf(':source_user_id');",
+									"pm.request.url.path[userIdIndex] = userId;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "oauth1",
+							"oauth1": [
+								{
+									"key": "addParamsToHeader",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "tokenSecret",
+									"value": "{{token_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								},
+								{
+									"key": "consumerSecret",
+									"value": "{{consumer_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "consumerKey",
+									"value": "{{consumer_key}}",
+									"type": "string"
+								},
+								{
+									"key": "signatureMethod",
+									"value": "HMAC-SHA1",
+									"type": "string"
+								},
+								{
+									"key": "version",
+									"value": "1.0",
+									"type": "string"
+								},
+								{
+									"key": "addEmptyParamsToSign",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.twitter.com/2/users/:id/likes/:tweet_id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"users",
+								":id",
+								"likes",
+								":tweet_id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "The ID of the user who wishes to unlike a Tweet. The ID must belong to the authenticating user.\n"
+								},
+								{
+									"key": "tweet_id",
+									"value": "",
+									"description": "The ID of the Tweet to be unliked"
+								}
+							]
+						},
+						"description": "Allows an authenticated user to unlike a Tweet.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/delete-users-user_id-likes) for this endpoint."
+					},
+					"response": []
+				}
+			],
+			"description": "Liking Tweets is a core functionality of using Twitter. Now you can use v2 of the API to like and unlike Tweets.\n\nThe manage Likes endpoints enable you to like or unlike a specified Tweet on behalf of an authenticated account. For this endpoint group, there are two methods available POST and DELETE. The POST method allows you to like a Tweet, and the DELETE method will enable you to unlike a Tweet.\n\nSince you are making requests on behalf of an account, you must authenticate these endpoints with OAuth 1.0a User Context and use associated Access Tokens. You can generate the credentials needed using the 3-legged OAuth flow. There is a rate limit of 50 requests per 15 minutes per endpoint with both endpoints, and a daily limit of 1000 likes and unlikes per day. Both the POST and DELETE methods share the daily rate limit."
+		},
+		{
 			"name": "Timelines",
 			"item": [
 				{
@@ -10033,27 +10252,22 @@
 	],
 	"variable": [
 		{
-			"id": "360efcc4-1e4d-433f-b05f-b6f967ba9d59",
 			"key": "consumer_key",
 			"value": ""
 		},
 		{
-			"id": "9006dfdf-3cea-4c00-9cae-1873c9bfa72e",
 			"key": "consumer_secret",
 			"value": ""
 		},
 		{
-			"id": "129f2cd1-9ab3-4ebb-8c40-6044931cf2e9",
 			"key": "access_token",
 			"value": ""
 		},
 		{
-			"id": "867143bf-e814-4be1-bc1f-b55ad19eb547",
 			"key": "token_secret",
 			"value": ""
 		},
 		{
-			"id": "c4d80e56-abbc-44a0-8912-43a952882fe0",
 			"key": "bearer_token",
 			"value": ""
 		}
