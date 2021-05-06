@@ -6842,12 +6842,12 @@
 								{
 									"key": "query",
 									"value": "",
-									"description": "Required. Query for matching Tweets. Up to 512 characters."
+									"description": "Required. Query for matching Tweets. Up to 1024 characters."
 								},
 								{
 									"key": "start_time",
 									"value": "",
-									"description": "The oldest UTC timestamp (from most recent 7 days) from which the Tweets will be provided. YYYY-MM-DDTHH:mm:ssZ (ISO 8601/RFC 3339).",
+									"description": "The oldest UTC timestamp from which the Tweets will be provided. YYYY-MM-DDTHH:mm:ssZ (ISO 8601/RFC 3339).",
 									"disabled": true
 								},
 								{
