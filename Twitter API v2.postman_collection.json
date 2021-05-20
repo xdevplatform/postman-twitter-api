@@ -5060,7 +5060,7 @@
 								{
 									"key": "user.fields",
 									"value": "",
-									"description": "Comma-separtated fields for the user object.\nAllowed values:\ncreated_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld\nDefault values:\nid,name,username",
+									"description": "Comma-separated fields for the user object.\nAllowed values:\ncreated_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld\nDefault values:\nid,name,username",
 									"disabled": true
 								},
 								{
@@ -5124,7 +5124,7 @@
 								{
 									"key": "user.fields",
 									"value": "",
-									"description": "Comma-separtated fields for the user object.\nAllowed values:\ncreated_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld\nDefault values:\nid,name,username",
+									"description": "Comma-separated fields for the user object.\nAllowed values:\ncreated_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,witheld\nDefault values:\nid,name,username",
 									"disabled": true
 								},
 								{
@@ -5461,6 +5461,125 @@
 					"response": []
 				},
 				{
+					"name": "Blocks lookup",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "oauth1",
+							"oauth1": [
+								{
+									"key": "tokenSecret",
+									"value": "{{token_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								},
+								{
+									"key": "consumerSecret",
+									"value": "{{consumer_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "consumerKey",
+									"value": "{{consumer_key}}",
+									"type": "string"
+								},
+								{
+									"key": "addParamsToHeader",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "signatureMethod",
+									"value": "HMAC-SHA1",
+									"type": "string"
+								},
+								{
+									"key": "version",
+									"value": "1.0",
+									"type": "string"
+								},
+								{
+									"key": "addEmptyParamsToSign",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.twitter.com/2/users/:id/blocking",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"users",
+								":id",
+								"blocking"
+							],
+							"query": [
+								{
+									"key": "user.fields",
+									"value": null,
+									"description": "Comma-separated fields for the user object.\nAllowed values:\ncreated_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld\nDefault values:\nid,name,username",
+									"disabled": true
+								},
+								{
+									"key": "expansions",
+									"value": null,
+									"description": "Expansions enable requests to expand an ID into a full object in the includes response object.\nAllowed value:\npinned_tweet_id\nDefault value: none",
+									"disabled": true
+								},
+								{
+									"key": "tweet.fields",
+									"value": null,
+									"description": "Comma-separated list of fields for the Tweet object. Expansion required.\nAllowed values:\nattachments,author_id,context_annotations,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang,non_public_metrics,organic_metrics,possibly_sensitive,promoted_metrics,public_metrics,referenced_tweets,source,text,withheld\nDefault values:\nid,text\nOAuth1.0a User Context authorization required if any of the following fields are included in the request:\nnon_public_metrics,organic_metrics,promoted_metrics",
+									"disabled": true
+								},
+								{
+									"key": "max_results",
+									"value": null,
+									"description": "The maximum number of results to be returned by a request.\nAllowed values: 1 through 1000.\nDefault value: 100",
+									"disabled": true
+								},
+								{
+									"key": "pagination_token",
+									"value": null,
+									"description": "This parameter is used to get the next 'page' of results. The value used with the parameter is pulled directly from the response provided by the API, and should not be modified.",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "Required. The user ID whose blocked users you would like to retrieve. The user’s ID must correspond to the user ID of the authenticating user, meaning that you must pass the Access Tokens associated with the user ID when authenticating your request."
+								}
+							]
+						},
+						"description": "Returns a list of users who are blocked by the specified user ID.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/get-users-blocking) for this endpoint."
+					},
+					"response": []
+				},
+				{
 					"name": "Unblock a user ID",
 					"event": [
 						{
@@ -5692,6 +5811,140 @@
 							]
 						},
 						"description": "Allows an authenticated user to like a Tweet.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/post-users-user_id-likes) for this endpoint."
+					},
+					"response": []
+				},
+				{
+					"name": "Liked Tweets",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.twitter.com/2/users/:id/liked_tweets",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"users",
+								":id",
+								"liked_tweets"
+							],
+							"query": [
+								{
+									"key": "user.fields",
+									"value": null,
+									"description": "Comma-separated fields for the user object.\nAllowed values:\ncreated_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld\nDefault values:\nid,name,username",
+									"disabled": true
+								},
+								{
+									"key": "expansions",
+									"value": null,
+									"description": "Expansions enable requests to expand an ID into a full object in the includes response object.\nAllowed value:\npinned_tweet_id\nDefault value: none",
+									"disabled": true
+								},
+								{
+									"key": "tweet.fields",
+									"value": null,
+									"description": "Comma-separated list of fields for the Tweet object. Expansion required.\nAllowed values:\nattachments,author_id,context_annotations,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang,non_public_metrics,organic_metrics,possibly_sensitive,promoted_metrics,public_metrics,referenced_tweets,source,text,withheld\nDefault values:\nid,text\nOAuth1.0a User Context authorization required if any of the following fields are included in the request:\nnon_public_metrics,organic_metrics,promoted_metrics",
+									"disabled": true
+								},
+								{
+									"key": "max_results",
+									"value": null,
+									"description": "The maximum number of results to be returned by a request.\nAllowed values: 5 through 100.\nDefault value: 100",
+									"disabled": true
+								},
+								{
+									"key": "pagination_token",
+									"value": null,
+									"description": "This parameter is used to get the next 'page' of results. The value used with the parameter is pulled directly from the response provided by the API, and should not be modified.",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "Required. User ID of the user to request liked Tweets for."
+								}
+							]
+						},
+						"description": "Returns a list of Tweets that have been liked by a specified user ID.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-users-id-liked_tweets) for this endpoint."
+					},
+					"response": []
+				},
+				{
+					"name": "Liking users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.twitter.com/2/tweets/:id/liking_users",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"tweets",
+								":id",
+								"liking_users"
+							],
+							"query": [
+								{
+									"key": "user.fields",
+									"value": "",
+									"description": "Comma-separated fields for the user object.\nAllowed values:\ncreated_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld\nDefault values:\nid,name,username",
+									"disabled": true
+								},
+								{
+									"key": "expansions",
+									"value": "",
+									"description": "Expansions enable requests to expand an ID into a full object in the includes response object.\nAllowed value:\npinned_tweet_id\nDefault value: none",
+									"disabled": true
+								},
+								{
+									"key": "tweet.fields",
+									"value": "",
+									"description": "Comma-separated list of fields for the Tweet object. Expansion required.\nAllowed values:\nattachments,author_id,context_annotations,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang,non_public_metrics,organic_metrics,possibly_sensitive,promoted_metrics,public_metrics,referenced_tweets,source,text,withheld\nDefault values:\nid,text\nOAuth1.0a User Context authorization required if any of the following fields are included in the request:\nnon_public_metrics,organic_metrics,promoted_metrics",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "Required. The Tweet ID of the Tweet to request liking users of."
+								}
+							]
+						},
+						"description": "Returns a list of users who have liked a specified Tweet ID.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-tweets-id-liking_users) for this endpoint."
 					},
 					"response": []
 				},
