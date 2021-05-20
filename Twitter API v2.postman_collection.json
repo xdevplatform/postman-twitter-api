@@ -10267,47 +10267,12 @@
 		}
 	],
 	"auth": {
-		"type": "oauth1",
-		"oauth1": [
-			{
-				"key": "addParamsToHeader",
-				"value": true,
-				"type": "boolean"
-			},
-			{
-				"key": "tokenSecret",
-				"value": "{{token_secret}}",
-				"type": "string"
-			},
+		"type": "bearer",
+		"bearer": [
 			{
 				"key": "token",
-				"value": "{{access_token}}",
+				"value": "{{bearer_token}}",
 				"type": "string"
-			},
-			{
-				"key": "consumerSecret",
-				"value": "{{consumer_secret}}",
-				"type": "string"
-			},
-			{
-				"key": "consumerKey",
-				"value": "{{consumer_key}}",
-				"type": "string"
-			},
-			{
-				"key": "signatureMethod",
-				"value": "HMAC-SHA1",
-				"type": "string"
-			},
-			{
-				"key": "version",
-				"value": "1.0",
-				"type": "string"
-			},
-			{
-				"key": "addEmptyParamsToSign",
-				"value": false,
-				"type": "boolean"
 			}
 		]
 	},
