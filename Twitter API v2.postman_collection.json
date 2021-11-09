@@ -5769,173 +5769,6 @@
 			]
 		},
 		{
-			"name": "Mutes",
-			"item": [
-				{
-					"name": "Mute a user ID",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "// Replace id-you-want-to-mute with the ID you wish to mute\n{\n    \"target_user_id\": \"id-you-want-to-mute\"\n}"
-						},
-						"url": {
-							"raw": "https://api.twitter.com/2/users/:id/muting",
-							"protocol": "https",
-							"host": [
-								"api",
-								"twitter",
-								"com"
-							],
-							"path": [
-								"2",
-								"users",
-								":id",
-								"muting"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "",
-									"description": "Required. Enter a single user ID."
-								}
-							]
-						},
-						"description": "Allows a user ID to mute another user.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/post-users-user_id-muting) for this endpoint."
-					},
-					"response": []
-				},
-				{
-					"name": "Unmute a user ID",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"// This script extracts the ID of the authenticating user, so you do not have to pass it yourself.",
-									"if (!pm.environment.get('access_token') || !pm.request.url.path.includes(':source_user_id')) {",
-									"    return;",
-									"}",
-									"",
-									"const [userId] = pm.environment.get('access_token').split('-');",
-									"",
-									"if (!userId) {",
-									"    return;",
-									"}",
-									"",
-									"const userIdIndex = pm.request.url.path.indexOf(':source_user_id');",
-									"pm.request.url.path[userIdIndex] = userId;",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "https://api.twitter.com/2/users/:source_user_id/muting/:target_user_id",
-							"protocol": "https",
-							"host": [
-								"api",
-								"twitter",
-								"com"
-							],
-							"path": [
-								"2",
-								"users",
-								":source_user_id",
-								"muting",
-								":target_user_id"
-							],
-							"variable": [
-								{
-									"key": "source_user_id",
-									"value": "",
-									"description": "The ID of the user who wishes to unmute an account. The ID must belong to the authenticating user.\n\nIn Postman, you can leave the `source_user_id` field empty to let the collection automatically populate it with the user ID of the user in the current environment."
-								},
-								{
-									"key": "target_user_id",
-									"value": "",
-									"description": "The ID of the user to unmute."
-								}
-							]
-						},
-						"description": "Allows a user ID to unmute another user.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/delete-users-user_id-muting) for this endpoint."
-					},
-					"response": []
-				}
-			],
-			"description": "The manage mute endpoints enable you to mute or unmute a specified account on behalf of an authenticated user. For these endpoints, there are two methods available: POST and DELETE. The POST method allows you to mute an account, and the DELETE method allows you to unmute an account. There is a user rate limit of 50 requests per 15 minutes for both the POST and DELETE endpoints.",
-			"auth": {
-				"type": "oauth1",
-				"oauth1": [
-					{
-						"key": "tokenSecret",
-						"value": "{{token_secret}}",
-						"type": "string"
-					},
-					{
-						"key": "token",
-						"value": "{{access_token}}",
-						"type": "string"
-					},
-					{
-						"key": "consumerSecret",
-						"value": "{{consumer_secret}}",
-						"type": "string"
-					},
-					{
-						"key": "consumerKey",
-						"value": "{{consumer_key}}",
-						"type": "string"
-					},
-					{
-						"key": "signatureMethod",
-						"value": "HMAC-SHA1",
-						"type": "string"
-					},
-					{
-						"key": "version",
-						"value": "1.0",
-						"type": "string"
-					},
-					{
-						"key": "addParamsToHeader",
-						"value": false,
-						"type": "boolean"
-					},
-					{
-						"key": "addEmptyParamsToSign",
-						"value": false,
-						"type": "boolean"
-					}
-				]
-			},
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			]
-		},
-		{
 			"name": "Likes",
 			"item": [
 				{
@@ -6287,6 +6120,1332 @@
 				}
 			],
 			"description": "Liking Tweets is a core functionality of using Twitter. Now you can use v2 of the API to like and unlike Tweets.\n\nThe manage Likes endpoints enable you to like or unlike a specified Tweet on behalf of an authenticated account. For this endpoint group, there are two methods available POST and DELETE. The POST method allows you to like a Tweet, and the DELETE method will enable you to unlike a Tweet.\n\nSince you are making requests on behalf of an account, you must authenticate these endpoints with OAuth 1.0a User Context and use associated Access Tokens. You can generate the credentials needed using the 3-legged OAuth flow. There is a rate limit of 50 requests per 15 minutes per endpoint with both endpoints, and a daily limit of 1000 likes and unlikes per day. Both the POST and DELETE methods share the daily rate limit."
+		},
+		{
+			"name": "Retweets",
+			"item": [
+				{
+					"name": "Retweet a Tweet",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// This script extracts the ID of the authenticating user, so you do not have to pass it yourself.",
+									"if (!pm.environment.get('access_token') || !pm.request.url.path.includes(':id')) {",
+									"    return;",
+									"}",
+									"",
+									"const [userId] = pm.environment.get('access_token').split('-');",
+									"",
+									"if (!userId) {",
+									"    return;",
+									"}",
+									"",
+									"const userIdIndex = pm.request.url.path.indexOf(':id');",
+									"pm.request.url.path[userIdIndex] = userId;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "oauth1",
+							"oauth1": [
+								{
+									"key": "addParamsToHeader",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "tokenSecret",
+									"value": "{{token_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								},
+								{
+									"key": "consumerSecret",
+									"value": "{{consumer_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "consumerKey",
+									"value": "{{consumer_key}}",
+									"type": "string"
+								},
+								{
+									"key": "signatureMethod",
+									"value": "HMAC-SHA1",
+									"type": "string"
+								},
+								{
+									"key": "version",
+									"value": "1.0",
+									"type": "string"
+								},
+								{
+									"key": "addEmptyParamsToSign",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tweet_id\": \"1415348607813832708\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.twitter.com/2/users/:id/retweets",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"users",
+								":id",
+								"retweets"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "The ID of the user who wishes to Retweet a Tweet. The ID must belong to the authenticating user.\n"
+								}
+							]
+						},
+						"description": "Allows an authenticated user to Retweet a Tweet.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/post-users-id-retweets) for this endpoint."
+					},
+					"response": []
+				},
+				{
+					"name": "Retweeted by",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.twitter.com/2/tweets/:id/retweeted_by",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"tweets",
+								":id",
+								"retweeted_by"
+							],
+							"query": [
+								{
+									"key": "user.fields",
+									"value": "",
+									"description": "Comma-separated fields for the user object.\nAllowed values:\ncreated_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld\nDefault values:\nid,name,username",
+									"disabled": true
+								},
+								{
+									"key": "expansions",
+									"value": "",
+									"description": "Expansions enable requests to expand an ID into a full object in the includes response object.\nAllowed value:\npinned_tweet_id\nDefault value: none",
+									"disabled": true
+								},
+								{
+									"key": "tweet.fields",
+									"value": "",
+									"description": "Comma-separated list of fields for the Tweet object. Expansion required.\nAllowed values:\nattachments,author_id,context_annotations,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang,non_public_metrics,organic_metrics,possibly_sensitive,promoted_metrics,public_metrics,referenced_tweets,source,text,withheld\nDefault values:\nid,text\nOAuth1.0a User Context authorization required if any of the following fields are included in the request:\nnon_public_metrics,organic_metrics,promoted_metrics",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "Required. The Tweet ID of the Tweet to request Retweeting users of."
+								}
+							]
+						},
+						"description": "Returns a list of users who have liked a specified Tweet ID.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/tweets/reweets/api-reference/get-tweets-id-retweeted_by) for this endpoint."
+					},
+					"response": []
+				},
+				{
+					"name": "Undo a Retweet",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// This script extracts the ID of the authenticating user, so you do not have to pass it yourself.",
+									"if (!pm.environment.get('access_token') || !pm.request.url.path.includes(':source_user_id')) {",
+									"    return;",
+									"}",
+									"",
+									"const [userId] = pm.environment.get('access_token').split('-');",
+									"",
+									"if (!userId) {",
+									"    return;",
+									"}",
+									"",
+									"const userIdIndex = pm.request.url.path.indexOf(':source_user_id');",
+									"pm.request.url.path[userIdIndex] = userId;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "oauth1",
+							"oauth1": [
+								{
+									"key": "addParamsToHeader",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "tokenSecret",
+									"value": "{{token_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								},
+								{
+									"key": "consumerSecret",
+									"value": "{{consumer_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "consumerKey",
+									"value": "{{consumer_key}}",
+									"type": "string"
+								},
+								{
+									"key": "signatureMethod",
+									"value": "HMAC-SHA1",
+									"type": "string"
+								},
+								{
+									"key": "version",
+									"value": "1.0",
+									"type": "string"
+								},
+								{
+									"key": "addEmptyParamsToSign",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.twitter.com/2/users/:id/retweets/:source_tweet_id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"users",
+								":id",
+								"retweets",
+								":source_tweet_id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "The ID of the user who wishes to undo a Reweet. The ID must belong to the authenticating user.\n"
+								},
+								{
+									"key": "source_tweet_id",
+									"value": "",
+									"description": "The ID of the Tweet to remove of Retweet of"
+								}
+							]
+						},
+						"description": "Allows an authenticated user to unlike a Tweet.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/tweets/reweets/api-reference/delete-users-id-retweets-tweet_id) for this endpoint."
+					},
+					"response": []
+				}
+			],
+			"description": "Liking Tweets is a core functionality of using Twitter. Now you can use v2 of the API to like and unlike Tweets.\n\nThe manage Likes endpoints enable you to like or unlike a specified Tweet on behalf of an authenticated account. For this endpoint group, there are two methods available POST and DELETE. The POST method allows you to like a Tweet, and the DELETE method will enable you to unlike a Tweet.\n\nSince you are making requests on behalf of an account, you must authenticate these endpoints with OAuth 1.0a User Context and use associated Access Tokens. You can generate the credentials needed using the 3-legged OAuth flow. There is a rate limit of 50 requests per 15 minutes per endpoint with both endpoints, and a daily limit of 1000 likes and unlikes per day. Both the POST and DELETE methods share the daily rate limit."
+		},
+		{
+			"name": "Manage Tweets",
+			"item": [
+				{
+					"name": "Create a Tweet",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// This script extracts the ID of the authenticating user, so you do not have to pass it yourself.",
+									"if (!pm.environment.get('access_token') || !pm.request.url.path.includes(':id')) {",
+									"    return;",
+									"}",
+									"",
+									"const [userId] = pm.environment.get('access_token').split('-');",
+									"",
+									"if (!userId) {",
+									"    return;",
+									"}",
+									"",
+									"const userIdIndex = pm.request.url.path.indexOf(':id');",
+									"pm.request.url.path[userIdIndex] = userId;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "oauth1",
+							"oauth1": [
+								{
+									"key": "addParamsToHeader",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "tokenSecret",
+									"value": "{{token_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								},
+								{
+									"key": "consumerSecret",
+									"value": "{{consumer_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "consumerKey",
+									"value": "{{consumer_key}}",
+									"type": "string"
+								},
+								{
+									"key": "signatureMethod",
+									"value": "HMAC-SHA1",
+									"type": "string"
+								},
+								{
+									"key": "version",
+									"value": "1.0",
+									"type": "string"
+								},
+								{
+									"key": "addEmptyParamsToSign",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"Hello World!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.twitter.com/2/tweets",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"tweets"
+							]
+						},
+						"description": "Allows an authenticated user to create a Tweet. \n\nYou can add parameters to post polls, quote Tweets, Tweet with reply settings, and Tweet to Super Followers in addition to other features.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/tweets/manage-tweets/api-reference/post-tweet) for this endpoint."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Tweet",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// This script extracts the ID of the authenticating user, so you do not have to pass it yourself.",
+									"if (!pm.environment.get('access_token') || !pm.request.url.path.includes(':source_user_id')) {",
+									"    return;",
+									"}",
+									"",
+									"const [userId] = pm.environment.get('access_token').split('-');",
+									"",
+									"if (!userId) {",
+									"    return;",
+									"}",
+									"",
+									"const userIdIndex = pm.request.url.path.indexOf(':source_user_id');",
+									"pm.request.url.path[userIdIndex] = userId;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "oauth1",
+							"oauth1": [
+								{
+									"key": "addParamsToHeader",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "tokenSecret",
+									"value": "{{token_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								},
+								{
+									"key": "consumerSecret",
+									"value": "{{consumer_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "consumerKey",
+									"value": "{{consumer_key}}",
+									"type": "string"
+								},
+								{
+									"key": "signatureMethod",
+									"value": "HMAC-SHA1",
+									"type": "string"
+								},
+								{
+									"key": "version",
+									"value": "1.0",
+									"type": "string"
+								},
+								{
+									"key": "addEmptyParamsToSign",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.twitter.com/2/tweets/:id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"tweets",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null,
+									"description": "ID to of the Tweet you wish to delete"
+								}
+							]
+						},
+						"description": "Allows an authenticated user to delete a Tweet.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/tweets/manage-tweets/api-reference/delete-tweet) for this endpoint."
+					},
+					"response": []
+				}
+			],
+			"description": "Creating and deleting Tweets using the API is essential for engaging with the public conversation and ensuring a safer Twitter experience. \n\nWe have two available methods for manage Tweets, POST and DELETE. The POST method lets you post polls, quote Tweets, Tweet with reply settings, and Tweet to Super Followers in addition to other features. Likewise, the DELETE method allows you to delete a specific Tweet.",
+			"auth": {
+				"type": "oauth1",
+				"oauth1": [
+					{
+						"key": "signatureMethod",
+						"value": "HMAC-SHA1",
+						"type": "string"
+					},
+					{
+						"key": "version",
+						"value": "1.0",
+						"type": "string"
+					},
+					{
+						"key": "addParamsToHeader",
+						"value": false,
+						"type": "boolean"
+					},
+					{
+						"key": "addEmptyParamsToSign",
+						"value": false,
+						"type": "boolean"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Mutes",
+			"item": [
+				{
+					"name": "Mute a user ID",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "// Replace id-you-want-to-mute with the ID you wish to mute\n{\n    \"target_user_id\": \"id-you-want-to-mute\"\n}"
+						},
+						"url": {
+							"raw": "https://api.twitter.com/2/users/:id/muting",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"users",
+								":id",
+								"muting"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "Required. Enter a single user ID."
+								}
+							]
+						},
+						"description": "Allows a user ID to mute another user.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/post-users-user_id-muting) for this endpoint."
+					},
+					"response": []
+				},
+				{
+					"name": "Unmute a user ID",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// This script extracts the ID of the authenticating user, so you do not have to pass it yourself.",
+									"if (!pm.environment.get('access_token') || !pm.request.url.path.includes(':source_user_id')) {",
+									"    return;",
+									"}",
+									"",
+									"const [userId] = pm.environment.get('access_token').split('-');",
+									"",
+									"if (!userId) {",
+									"    return;",
+									"}",
+									"",
+									"const userIdIndex = pm.request.url.path.indexOf(':source_user_id');",
+									"pm.request.url.path[userIdIndex] = userId;",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.twitter.com/2/users/:source_user_id/muting/:target_user_id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"users",
+								":source_user_id",
+								"muting",
+								":target_user_id"
+							],
+							"variable": [
+								{
+									"key": "source_user_id",
+									"value": "",
+									"description": "The ID of the user who wishes to unmute an account. The ID must belong to the authenticating user.\n\nIn Postman, you can leave the `source_user_id` field empty to let the collection automatically populate it with the user ID of the user in the current environment."
+								},
+								{
+									"key": "target_user_id",
+									"value": "",
+									"description": "The ID of the user to unmute."
+								}
+							]
+						},
+						"description": "Allows a user ID to unmute another user.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/delete-users-user_id-muting) for this endpoint."
+					},
+					"response": []
+				},
+				{
+					"name": "Mutes lookup",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "oauth1",
+							"oauth1": [
+								{
+									"key": "tokenSecret",
+									"value": "{{token_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								},
+								{
+									"key": "consumerSecret",
+									"value": "{{consumer_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "consumerKey",
+									"value": "{{consumer_key}}",
+									"type": "string"
+								},
+								{
+									"key": "addParamsToHeader",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "signatureMethod",
+									"value": "HMAC-SHA1",
+									"type": "string"
+								},
+								{
+									"key": "version",
+									"value": "1.0",
+									"type": "string"
+								},
+								{
+									"key": "addEmptyParamsToSign",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "https://api.twitter.com/2/users/:id/muting",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"users",
+								":id",
+								"muting"
+							],
+							"query": [
+								{
+									"key": "user.fields",
+									"value": null,
+									"description": "Comma-separated fields for the user object.\nAllowed values:\ncreated_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld\nDefault values:\nid,name,username",
+									"disabled": true
+								},
+								{
+									"key": "expansions",
+									"value": null,
+									"description": "Expansions enable requests to expand an ID into a full object in the includes response object.\nAllowed value:\npinned_tweet_id\nDefault value: none",
+									"disabled": true
+								},
+								{
+									"key": "tweet.fields",
+									"value": null,
+									"description": "Comma-separated list of fields for the Tweet object. Expansion required.\nAllowed values:\nattachments,author_id,context_annotations,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang,non_public_metrics,organic_metrics,possibly_sensitive,promoted_metrics,public_metrics,referenced_tweets,source,text,withheld\nDefault values:\nid,text\nOAuth1.0a User Context authorization required if any of the following fields are included in the request:\nnon_public_metrics,organic_metrics,promoted_metrics",
+									"disabled": true
+								},
+								{
+									"key": "max_results",
+									"value": null,
+									"description": "The maximum number of results to be returned by a request.\nAllowed values: 1 through 1000.\nDefault value: 100",
+									"disabled": true
+								},
+								{
+									"key": "pagination_token",
+									"value": null,
+									"description": "This parameter is used to get the next 'page' of results. The value used with the parameter is pulled directly from the response provided by the API, and should not be modified.",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "Required. The user ID whose muted users you would like to retrieve. The user’s ID must correspond to the user ID of the authenticating user, meaning that you must pass the Access Tokens associated with the user ID when authenticating your request."
+								}
+							]
+						},
+						"description": "Returns a list of users who are muted by the specified user ID.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/get-users-muting) for this endpoint."
+					},
+					"response": []
+				}
+			],
+			"description": "Muting an account allows you to remove an account's Tweets from your timeline without unfollowing or blocking that account. Muted accounts will not know that you've muted them and you can unmute them at any time. With manage mutes endpoints, developers can create safer experiences for people on Twitter. One example of how to build with manage mutes is an application that allows you to mute accounts that might Tweet about specific topics for a specified length of time. With the mutes lookup endpoint, you can see who you or an authenticated user has muted. This can be useful to determine how you interact with the muted accounts.",
+			"auth": {
+				"type": "oauth1",
+				"oauth1": [
+					{
+						"key": "tokenSecret",
+						"value": "{{token_secret}}",
+						"type": "string"
+					},
+					{
+						"key": "token",
+						"value": "{{access_token}}",
+						"type": "string"
+					},
+					{
+						"key": "consumerSecret",
+						"value": "{{consumer_secret}}",
+						"type": "string"
+					},
+					{
+						"key": "consumerKey",
+						"value": "{{consumer_key}}",
+						"type": "string"
+					},
+					{
+						"key": "signatureMethod",
+						"value": "HMAC-SHA1",
+						"type": "string"
+					},
+					{
+						"key": "version",
+						"value": "1.0",
+						"type": "string"
+					},
+					{
+						"key": "addParamsToHeader",
+						"value": false,
+						"type": "boolean"
+					},
+					{
+						"key": "addEmptyParamsToSign",
+						"value": false,
+						"type": "boolean"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Lists",
+			"item": [
+				{
+					"name": "Create a list",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"name-for-new-list\",\n    \"description\": \"description-of-list\",\n    \"private\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.twitter.com/2/lists",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"lists"
+							]
+						},
+						"description": "Allows the authenticated user to create a new List.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-lists) for this endpoint."
+					},
+					"response": []
+				},
+				{
+					"name": "Add a member",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"user-id-to-add\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.twitter.com/2/lists/:id/members",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"lists",
+								":id",
+								"members"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null,
+									"description": "Required. The ID of the list you wish to add a member to - Authenticated user must own the list in order to add the member"
+								}
+							]
+						},
+						"description": "Allows the authenticated user to add a member to a List they own.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-lists-id-members) for this endpoint."
+					},
+					"response": []
+				},
+				{
+					"name": "Follow a list",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"list_id\": \"list-id-to-follow\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.twitter.com/2/users/:id/followed_lists",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"users",
+								":id",
+								"followed_lists"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null,
+									"description": "Required. The ID of the authenticated user "
+								}
+							]
+						},
+						"description": "Allows the authenticated user to follow a specified List.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-users-id-followed-lists) for this endpoint."
+					},
+					"response": []
+				},
+				{
+					"name": "Pin a list",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"list_id\": \"list-id-to-pin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.twitter.com/2/users/:id/pinned_lists",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"users",
+								":id",
+								"pinned_lists"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null,
+									"description": "Required. The ID of the authenticated user"
+								}
+							]
+						},
+						"description": "Allows the authenticated user to pin a specified List.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-users-id-pinned-lists) for this endpoint."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a list",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// This script extracts the ID of the authenticating user, so you do not have to pass it yourself.",
+									"if (!pm.environment.get('access_token') || !pm.request.url.path.includes(':source_user_id')) {",
+									"    return;",
+									"}",
+									"",
+									"const [userId] = pm.environment.get('access_token').split('-');",
+									"",
+									"if (!userId) {",
+									"    return;",
+									"}",
+									"",
+									"const userIdIndex = pm.request.url.path.indexOf(':source_user_id');",
+									"pm.request.url.path[userIdIndex] = userId;",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.twitter.com/2/lists/:id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"lists",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "Required. The ID of the List you wish to delete - the List must be owned by the authenticated user"
+								}
+							]
+						},
+						"description": "Allows the authenticated user to delete a list they own.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/delete-lists-id) for this endpoint."
+					},
+					"response": []
+				},
+				{
+					"name": "Remove a member",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// This script extracts the ID of the authenticating user, so you do not have to pass it yourself.",
+									"if (!pm.environment.get('access_token') || !pm.request.url.path.includes(':source_user_id')) {",
+									"    return;",
+									"}",
+									"",
+									"const [userId] = pm.environment.get('access_token').split('-');",
+									"",
+									"if (!userId) {",
+									"    return;",
+									"}",
+									"",
+									"const userIdIndex = pm.request.url.path.indexOf(':source_user_id');",
+									"pm.request.url.path[userIdIndex] = userId;",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.twitter.com/2/lists/:id/members/:user_id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"lists",
+								":id",
+								"members",
+								":user_id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "Required. The ID of the List you wish to remove a user from - the List must be owned by the authenticated user"
+								},
+								{
+									"key": "user_id",
+									"value": null,
+									"description": "Required. The ID of the user you wish to remove from the list"
+								}
+							]
+						},
+						"description": "Allows the authenticated user to remove a member from a List they own.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/delete-lists-id-members-user_id) for this endpoint."
+					},
+					"response": []
+				},
+				{
+					"name": "Unfollow a list",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// This script extracts the ID of the authenticating user, so you do not have to pass it yourself.",
+									"if (!pm.environment.get('access_token') || !pm.request.url.path.includes(':source_user_id')) {",
+									"    return;",
+									"}",
+									"",
+									"const [userId] = pm.environment.get('access_token').split('-');",
+									"",
+									"if (!userId) {",
+									"    return;",
+									"}",
+									"",
+									"const userIdIndex = pm.request.url.path.indexOf(':source_user_id');",
+									"pm.request.url.path[userIdIndex] = userId;",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.twitter.com/2/users/:id/followed_lists/:list_id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"users",
+								":id",
+								"followed_lists",
+								":list_id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "Required. The ID of the authenticated user "
+								},
+								{
+									"key": "list_id",
+									"value": null,
+									"description": "Required. The ID of the List you wish to unfollow\n"
+								}
+							]
+						},
+						"description": "Allows the authenticated user to unfollow a specified List.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/delete-users-id-followed-lists-list_id) for this endpoint."
+					},
+					"response": []
+				},
+				{
+					"name": "Unpin a list",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// This script extracts the ID of the authenticating user, so you do not have to pass it yourself.",
+									"if (!pm.environment.get('access_token') || !pm.request.url.path.includes(':source_user_id')) {",
+									"    return;",
+									"}",
+									"",
+									"const [userId] = pm.environment.get('access_token').split('-');",
+									"",
+									"if (!userId) {",
+									"    return;",
+									"}",
+									"",
+									"const userIdIndex = pm.request.url.path.indexOf(':source_user_id');",
+									"pm.request.url.path[userIdIndex] = userId;",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.twitter.com/2/lists/:id/pinned_lists/:list_id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"lists",
+								":id",
+								"pinned_lists",
+								":list_id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "Required. The ID of the authenticated user"
+								},
+								{
+									"key": "list_id",
+									"value": null,
+									"description": "Required. The ID of the List you wish to unpin"
+								}
+							]
+						},
+						"description": "Allows the authenticated user to unpin a specified List.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/delete-users-id-pinned-lists-list_id) for this endpoint."
+					},
+					"response": []
+				},
+				{
+					"name": "Update a list",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"update-name\",\n    \"description\": \"update-description\",\n    \"private\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.twitter.com/2/lists/:id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"lists",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null,
+									"description": "The ID of the List you wish to update the metadata of - the List must be owned by the authenticated user"
+								}
+							]
+						},
+						"description": "Allows the authenticated user to update a List they own.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/put-lists-id) for this endpoint."
+					},
+					"response": []
+				}
+			],
+			"description": "Twitter Lists allows users to customize, organize and prioritize the Tweets they see in their timeline. With the Lists endpoints, you can build solutions that enable people to curate and organize Tweets based on preferences, interests, groups, or topics.",
+			"auth": {
+				"type": "oauth1",
+				"oauth1": [
+					{
+						"key": "tokenSecret",
+						"value": "{{token_secret}}",
+						"type": "string"
+					},
+					{
+						"key": "token",
+						"value": "{{access_token}}",
+						"type": "string"
+					},
+					{
+						"key": "consumerSecret",
+						"value": "{{consumer_secret}}",
+						"type": "string"
+					},
+					{
+						"key": "consumerKey",
+						"value": "{{consumer_key}}",
+						"type": "string"
+					},
+					{
+						"key": "signatureMethod",
+						"value": "HMAC-SHA1",
+						"type": "string"
+					},
+					{
+						"key": "version",
+						"value": "1.0",
+						"type": "string"
+					},
+					{
+						"key": "addParamsToHeader",
+						"value": false,
+						"type": "boolean"
+					},
+					{
+						"key": "addEmptyParamsToSign",
+						"value": false,
+						"type": "boolean"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
 		},
 		{
 			"name": "Timelines",
@@ -10670,6 +11829,744 @@
 							""
 						]
 					}
+				}
+			]
+		},
+		{
+			"name": "Spaces",
+			"item": [
+				{
+					"name": "Spaces lookup",
+					"item": [
+						{
+							"name": "Spaces lookup by single ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearer_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.twitter.com/2/spaces/:id?space.fields=&expansions=&user.fields=",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"spaces",
+										":id"
+									],
+									"query": [
+										{
+											"key": "space.fields",
+											"value": "",
+											"description": "Comma-separated list of fields from the Space object you want to return from your request.\n\nAvailable fields:\nhost_ids,created_at,creator_id,id,lang,invited_user_ids, participants,speaker_ids,started_at,state,title,updated_at, scheduled_start,is_ticketed\n\nDefault fields:\nid,state"
+										},
+										{
+											"key": "expansions",
+											"value": "",
+											"description": "Comma-separated list of fields to expand. Expansions enable requests to expand an ID into a full object in the includes response object.\n\nAvailable values:\ninvited_user_ids,speaker_ids,creator_id,host_ids"
+										},
+										{
+											"key": "user.fields",
+											"value": "",
+											"description": "Comma-separated list of fields from the Space object you want to return from your request.\n\nAllowed values:\ncreated_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld\n\nDefault values:\nid,name,username"
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "",
+											"description": "The ID of the Spaces to lookup."
+										}
+									]
+								},
+								"description": "This endpoint returns information about a single Space with the specified ID."
+							},
+							"response": [
+								{
+									"name": "The request was successful",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: bearer",
+												"key": "Authorization",
+												"value": "Bearer <token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/2/spaces/:id?space.fields=<string>&expansions=<string>&user.fields=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"2",
+												"spaces",
+												":id"
+											],
+											"query": [
+												{
+													"key": "space.fields",
+													"value": "<string>"
+												},
+												{
+													"key": "expansions",
+													"value": "<string>"
+												},
+												{
+													"key": "user.fields",
+													"value": "<string>"
+												}
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"data\": {\n  \"id\": \"\",\n  \"state\": \"est irure eu mollit\",\n  \"host_ids\": [\n   \"<string>\",\n   \"<string>\"\n  ],\n  \"created_at\": \"<dateTime>\",\n  \"creator_id\": \"<string>\",\n  \"lang\": \"pariatur tempor in\",\n  \"is_ticketed\": \"<boolean>\",\n  \"invited_user_ids\": [\n   \"<string>\",\n   \"<string>\"\n  ],\n  \"participant_count\": \"<integer>\",\n  \"scheduled_start\": \"<dateTime>\",\n  \"speaker_ids\": [\n   \"<string>\",\n   \"<string>\"\n  ],\n  \"started_at\": \"<dateTime>\",\n  \"title\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n },\n \"includes\": {\n  \"users\": [\n   {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"username\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"protected\": \"<boolean>\",\n    \"verified\": \"<boolean>\",\n    \"withheld\": {\n     \"country_codes\": [\n      {\n       \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n     ],\n     \"scope\": \"<string>\"\n    },\n    \"profile_image_url\": \"<uri>\",\n    \"location\": \"<string>\",\n    \"url\": \"<string>\",\n    \"description\": \"<string>\",\n    \"entities\": {\n     \"url\": {\n      \"urls\": [\n       {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n       }\n      ]\n     },\n     \"description\": {\n      \"urls\": [\n       {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n       }\n      ],\n      \"hashtags\": [\n       {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n       }\n      ],\n      \"mentions\": [\n       {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n       }\n      ],\n      \"cashtags\": [\n       {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n       }\n      ]\n     }\n    },\n    \"pinned_tweet_id\": \"<string>\",\n    \"public_metrics\": {\n     \"followers_count\": \"<integer>\",\n     \"following_count\": \"<integer>\",\n     \"tweet_count\": \"<integer>\",\n     \"listed_count\": \"<integer>\"\n    }\n   }\n  ]\n },\n \"errors\": [\n  {\n   \"detail\": \"<string>\",\n   \"status\": \"<integer>\",\n   \"title\": \"<string>\",\n   \"type\": \"<string>\"\n  }\n ]\n}"
+								},
+								{
+									"name": "The request has failed.",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: bearer",
+												"key": "Authorization",
+												"value": "Bearer <token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/2/spaces/:id?space.fields=<string>&expansions=<string>&user.fields=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"2",
+												"spaces",
+												":id"
+											],
+											"query": [
+												{
+													"key": "space.fields",
+													"value": "<string>"
+												},
+												{
+													"key": "expansions",
+													"value": "<string>"
+												},
+												{
+													"key": "user.fields",
+													"value": "<string>"
+												}
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Spaces lookup by list of IDs",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearer_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.twitter.com/2/spaces?ids=&space.fields=&expansions=&user.fields=",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"spaces"
+									],
+									"query": [
+										{
+											"key": "ids",
+											"value": "",
+											"description": "Required. A comma separated list of IDs of the Spaces to lookup. You can specify up to 100 IDs."
+										},
+										{
+											"key": "space.fields",
+											"value": "",
+											"description": "Comma-separated list of fields from the Space object you want to return from your request.\n\nAvailable fields:\nhost_ids,created_at,creator_id,id,lang,invited_user_ids, participants,speaker_ids,started_at,state,title,updated_at, scheduled_start,is_ticketed\n\nDefault fields:\nid,state"
+										},
+										{
+											"key": "expansions",
+											"value": "",
+											"description": "Comma-separated list of fields to expand. Expansions enable requests to expand an ID into a full object in the includes response object.\n\nAvailable values:\ninvited_user_ids,speaker_ids,creator_id,host_ids"
+										},
+										{
+											"key": "user.fields",
+											"value": "",
+											"description": "Comma-separated list of fields from the Space object you want to return from your request.\n\nAllowed values:\ncreated_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld\n\nDefault values:\nid,name,username"
+										}
+									]
+								},
+								"description": "This endpoint returns information about one or more Spaces with the specified comma-separated list of IDs. You can request up to 100 Spaces in a single request"
+							},
+							"response": [
+								{
+									"name": "The request was successful",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: bearer",
+												"key": "Authorization",
+												"value": "Bearer <token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/2/spaces?ids=&space.fields=<string>&expansions=<string>&user.fields=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"2",
+												"spaces"
+											],
+											"query": [
+												{
+													"key": "ids",
+													"value": ""
+												},
+												{
+													"key": "space.fields",
+													"value": "<string>"
+												},
+												{
+													"key": "expansions",
+													"value": "<string>"
+												},
+												{
+													"key": "user.fields",
+													"value": "<string>"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"data\": [\n  {\n   \"id\": \"\",\n   \"state\": \"dolore qui sunt non\",\n   \"host_ids\": [\n    \"<string>\",\n    \"<string>\"\n   ],\n   \"created_at\": \"<dateTime>\",\n   \"creator_id\": \"<string>\",\n   \"lang\": \"ipsum aliqua\",\n   \"is_ticketed\": \"<boolean>\",\n   \"invited_user_ids\": [\n    \"<string>\",\n    \"<string>\"\n   ],\n   \"participant_count\": \"<integer>\",\n   \"scheduled_start\": \"<dateTime>\",\n   \"speaker_ids\": [\n    \"<string>\",\n    \"<string>\"\n   ],\n   \"started_at\": \"<dateTime>\",\n   \"title\": \"<string>\",\n   \"updated_at\": \"<dateTime>\"\n  }\n ],\n \"includes\": {\n  \"users\": [\n   {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"username\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"protected\": \"<boolean>\",\n    \"verified\": \"<boolean>\",\n    \"withheld\": {\n     \"country_codes\": [\n      {\n       \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n     ],\n     \"scope\": \"<string>\"\n    },\n    \"profile_image_url\": \"<uri>\",\n    \"location\": \"<string>\",\n    \"url\": \"<string>\",\n    \"description\": \"<string>\",\n    \"entities\": {\n     \"url\": {\n      \"urls\": [\n       {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n       }\n      ]\n     },\n     \"description\": {\n      \"urls\": [\n       {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n       }\n      ],\n      \"hashtags\": [\n       {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n       }\n      ],\n      \"mentions\": [\n       {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n       }\n      ],\n      \"cashtags\": [\n       {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n       }\n      ]\n     }\n    },\n    \"pinned_tweet_id\": \"<string>\",\n    \"public_metrics\": {\n     \"followers_count\": \"<integer>\",\n     \"following_count\": \"<integer>\",\n     \"tweet_count\": \"<integer>\",\n     \"listed_count\": \"<integer>\"\n    }\n   }\n  ]\n },\n \"errors\": [\n  {\n   \"detail\": \"<string>\",\n   \"status\": \"<integer>\",\n   \"title\": \"<string>\",\n   \"type\": \"<string>\"\n  }\n ]\n}"
+								},
+								{
+									"name": "The request has failed.",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: bearer",
+												"key": "Authorization",
+												"value": "Bearer <token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/2/spaces?ids=&space.fields=<string>&expansions=<string>&user.fields=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"2",
+												"spaces"
+											],
+											"query": [
+												{
+													"key": "ids",
+													"value": ""
+												},
+												{
+													"key": "space.fields",
+													"value": "<string>"
+												},
+												{
+													"key": "expansions",
+													"value": "<string>"
+												},
+												{
+													"key": "user.fields",
+													"value": "<string>"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Lookup Spaces created by one or more users",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearer_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.twitter.com/2/spaces/by/creator_id?user_ids=&space.fields=&expansions=&user.fields=",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"spaces",
+										"by",
+										"creator_id"
+									],
+									"query": [
+										{
+											"key": "user_ids",
+											"value": "",
+											"description": "Required. A comma-separated list of user IDs. You can specify up 100 IDs in a single request."
+										},
+										{
+											"key": "space.fields",
+											"value": "",
+											"description": "Comma-separated list of fields from the Space object you want to return from your request.\n\nAvailable fields:\nhost_ids,created_at,creator_id,id,lang,invited_user_ids, participants,speaker_ids,started_at,state,title,updated_at, scheduled_start,is_ticketed\n\nDefault fields:\nid,state"
+										},
+										{
+											"key": "expansions",
+											"value": "",
+											"description": "Comma-separated list of fields to expand. Expansions enable requests to expand an ID into a full object in the includes response object.\n\nAvailable values:\ninvited_user_ids,speaker_ids,creator_id,host_ids"
+										},
+										{
+											"key": "user.fields",
+											"value": "",
+											"description": "Comma-separated list of fields to expand. Expansions enable requests to expand an ID into a full object in the includes response object.\n\nAvailable values:\ncreated_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld\n\nDefault values:\nid,name.username"
+										}
+									]
+								},
+								"description": "This endpoint returns information about a user. Specify user by username."
+							},
+							"response": [
+								{
+									"name": "The request was successful",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: bearer",
+												"key": "Authorization",
+												"value": "Bearer <token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/2/spaces/by/creator_id?user_ids=<string>&filter=cupidatat officia quis laborum&expansions=<string>&space.fields=<string>&expansions=<string>&user.fields=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"2",
+												"spaces",
+												"by",
+												"creator_id"
+											],
+											"query": [
+												{
+													"key": "user_ids",
+													"value": "<string>"
+												},
+												{
+													"key": "filter",
+													"value": "cupidatat officia quis laborum"
+												},
+												{
+													"key": "expansions",
+													"value": "<string>"
+												},
+												{
+													"key": "space.fields",
+													"value": "<string>"
+												},
+												{
+													"key": "expansions",
+													"value": "<string>"
+												},
+												{
+													"key": "user.fields",
+													"value": "<string>"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"data\": [\n  {\n   \"id\": \"\",\n   \"state\": \"dolore qui sunt non\",\n   \"host_ids\": [\n    \"<string>\",\n    \"<string>\"\n   ],\n   \"created_at\": \"<dateTime>\",\n   \"creator_id\": \"<string>\",\n   \"lang\": \"ipsum aliqua\",\n   \"is_ticketed\": \"<boolean>\",\n   \"invited_user_ids\": [\n    \"<string>\",\n    \"<string>\"\n   ],\n   \"participant_count\": \"<integer>\",\n   \"scheduled_start\": \"<dateTime>\",\n   \"speaker_ids\": [\n    \"<string>\",\n    \"<string>\"\n   ],\n   \"started_at\": \"<dateTime>\",\n   \"title\": \"<string>\",\n   \"updated_at\": \"<dateTime>\"\n  }\n ],\n \"includes\": {\n  \"users\": [\n   {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"username\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"protected\": \"<boolean>\",\n    \"verified\": \"<boolean>\",\n    \"withheld\": {\n     \"country_codes\": [\n      {\n       \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n     ],\n     \"scope\": \"<string>\"\n    },\n    \"profile_image_url\": \"<uri>\",\n    \"location\": \"<string>\",\n    \"url\": \"<string>\",\n    \"description\": \"<string>\",\n    \"entities\": {\n     \"url\": {\n      \"urls\": [\n       {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n       }\n      ]\n     },\n     \"description\": {\n      \"urls\": [\n       {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n       }\n      ],\n      \"hashtags\": [\n       {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n       }\n      ],\n      \"mentions\": [\n       {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n       }\n      ],\n      \"cashtags\": [\n       {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n       }\n      ]\n     }\n    },\n    \"pinned_tweet_id\": \"<string>\",\n    \"public_metrics\": {\n     \"followers_count\": \"<integer>\",\n     \"following_count\": \"<integer>\",\n     \"tweet_count\": \"<integer>\",\n     \"listed_count\": \"<integer>\"\n    }\n   }\n  ]\n },\n \"errors\": [\n  {\n   \"detail\": \"<string>\",\n   \"status\": \"<integer>\",\n   \"title\": \"<string>\",\n   \"type\": \"<string>\"\n  }\n ]\n}"
+								},
+								{
+									"name": "The request has failed.",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: bearer",
+												"key": "Authorization",
+												"value": "Bearer <token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/2/spaces/by/creator_id?user_ids=<string>&filter=cupidatat officia quis laborum&expansions=<string>&space.fields=<string>&expansions=<string>&user.fields=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"2",
+												"spaces",
+												"by",
+												"creator_id"
+											],
+											"query": [
+												{
+													"key": "user_ids",
+													"value": "<string>"
+												},
+												{
+													"key": "filter",
+													"value": "cupidatat officia quis laborum"
+												},
+												{
+													"key": "expansions",
+													"value": "<string>"
+												},
+												{
+													"key": "space.fields",
+													"value": "<string>"
+												},
+												{
+													"key": "expansions",
+													"value": "<string>"
+												},
+												{
+													"key": "user.fields",
+													"value": "<string>"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+								}
+							]
+						}
+					],
+					"description": "Endpoints you can call if you know the ID of a Space, the ID of its creator, or the ID of users whose followings may be hosting Spaces."
+				},
+				{
+					"name": "Search Spaces",
+					"item": [
+						{
+							"name": "Search Spaces by title",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearer_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.twitter.com/2/spaces/search?query=&state=live&space.fields=&expansions=&user.fields",
+									"protocol": "https",
+									"host": [
+										"api",
+										"twitter",
+										"com"
+									],
+									"path": [
+										"2",
+										"spaces",
+										"search"
+									],
+									"query": [
+										{
+											"key": "query",
+											"value": "",
+											"description": "Required. A search term. Can be a keyword, hashtag, or mention."
+										},
+										{
+											"key": "state",
+											"value": "live",
+											"description": "Required. Return only Spaces with a specific running status.\n\nAllowed values:\nlive,scheduled"
+										},
+										{
+											"key": "space.fields",
+											"value": "",
+											"description": "Comma-separated list of fields from the Space object you want to return from your request.\n\nAvailable fields:\nhost_ids,created_at,creator_id,id,lang,invited_user_ids, participants,speaker_ids,started_at,state,title,updated_at, scheduled_start,is_ticketed\n\nDefault fields:\nid,state"
+										},
+										{
+											"key": "expansions",
+											"value": "",
+											"description": "Comma-separated list of fields to expand. Expansions enable requests to expand an ID into a full object in the includes response object.\n\nAvailable values:\ninvited_user_ids,speaker_ids,creator_id,host_ids"
+										},
+										{
+											"key": "user.fields",
+											"value": null,
+											"description": "Comma-separated list of fields to expand. Expansions enable requests to expand an ID into a full object in the includes response object.\n\nAvailable values:\ncreated_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld\n\nDefault values:\nid,name,username"
+										}
+									]
+								},
+								"description": "This endpoint returns Spaces matching the specified keyword query."
+							},
+							"response": [
+								{
+									"name": "The request was successful",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: bearer",
+												"key": "Authorization",
+												"value": "Bearer <token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/2/spaces/search?query=<string>&state=cupidatat officia quis laborum&expansions=<string>&space.fields=<string>&expansions=<string>&user.fields=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"2",
+												"spaces",
+												"search"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "<string>"
+												},
+												{
+													"key": "state",
+													"value": "cupidatat officia quis laborum"
+												},
+												{
+													"key": "expansions",
+													"value": "<string>"
+												},
+												{
+													"key": "space.fields",
+													"value": "<string>"
+												},
+												{
+													"key": "expansions",
+													"value": "<string>"
+												},
+												{
+													"key": "user.fields",
+													"value": "<string>"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"data\": [\n  {\n   \"id\": \"\",\n   \"state\": \"dolore qui sunt non\",\n   \"host_ids\": [\n    \"<string>\",\n    \"<string>\"\n   ],\n   \"created_at\": \"<dateTime>\",\n   \"creator_id\": \"<string>\",\n   \"lang\": \"ipsum aliqua\",\n   \"is_ticketed\": \"<boolean>\",\n   \"invited_user_ids\": [\n    \"<string>\",\n    \"<string>\"\n   ],\n   \"participant_count\": \"<integer>\",\n   \"scheduled_start\": \"<dateTime>\",\n   \"speaker_ids\": [\n    \"<string>\",\n    \"<string>\"\n   ],\n   \"started_at\": \"<dateTime>\",\n   \"title\": \"<string>\",\n   \"updated_at\": \"<dateTime>\"\n  }\n ],\n \"includes\": {\n  \"users\": [\n   {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"username\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"protected\": \"<boolean>\",\n    \"verified\": \"<boolean>\",\n    \"withheld\": {\n     \"country_codes\": [\n      {\n       \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n     ],\n     \"scope\": \"<string>\"\n    },\n    \"profile_image_url\": \"<uri>\",\n    \"location\": \"<string>\",\n    \"url\": \"<string>\",\n    \"description\": \"<string>\",\n    \"entities\": {\n     \"url\": {\n      \"urls\": [\n       {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n       }\n      ]\n     },\n     \"description\": {\n      \"urls\": [\n       {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n       }\n      ],\n      \"hashtags\": [\n       {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n       }\n      ],\n      \"mentions\": [\n       {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n       }\n      ],\n      \"cashtags\": [\n       {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n       }\n      ]\n     }\n    },\n    \"pinned_tweet_id\": \"<string>\",\n    \"public_metrics\": {\n     \"followers_count\": \"<integer>\",\n     \"following_count\": \"<integer>\",\n     \"tweet_count\": \"<integer>\",\n     \"listed_count\": \"<integer>\"\n    }\n   }\n  ]\n },\n \"errors\": [\n  {\n   \"detail\": \"<string>\",\n   \"status\": \"<integer>\",\n   \"title\": \"<string>\",\n   \"type\": \"<string>\"\n  }\n ]\n}"
+								}
+							]
+						}
+					],
+					"description": "Endpoints to search live and upcoming Spaces by keyword."
+				}
+			]
+		},
+		{
+			"name": "Batch Compliance",
+			"item": [
+				{
+					"name": "Create a batch compliance job",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"tweets\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.twitter.com/2/compliance/jobs",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"compliance",
+								"jobs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all batch compliance jobs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.twitter.com/2/compliance/jobs?type=tweets",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"compliance",
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "tweets"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a compliance job by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.twitter.com/2/compliance/jobs/:id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"twitter",
+								"com"
+							],
+							"path": [
+								"2",
+								"compliance",
+								"jobs",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
